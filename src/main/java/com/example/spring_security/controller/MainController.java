@@ -13,7 +13,7 @@ public class MainController {
     UserService userService ;
     @GetMapping("/")
     public String main(Model model){
-        model.addAttribute("user",userService.getAll());
+
         return "main";
     }
     @GetMapping("/login")

@@ -1,44 +1,133 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Главная страница - Интернет-магазин</title>
+    <style>
+        /* Основной стиль страницы */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5; /* Светлый фон для всей страницы */
+        }
+
+        /* Стиль заголовка (header) */
+        header {
+            background-color: #007bff; /* Синий фон для заголовка */
+            color: white;
+            padding: 10px;
+            text-align: center; /* Выравнивание по центру */
+        }
+
+        /* Стиль навигационной секции */
+        nav {
+            background-color: #333; /* Тёмный фон для навигации */
+            color: white;
+            text-align: center; /* Центрирование элементов */
+            padding: 10px;
+        }
+
+        nav ul {
+            list-style-type: none; /* Убираем маркеры у списков */
+            padding: 0; /* Убираем внутренние отступы */
+            margin: 0; /* Убираем внешние отступы */
+            display: inline-block; /* Выровнять по горизонтали */
+        }
+
+        nav li {
+            display: inline; /* Отображать элементы списков в линию */
+            margin: 0 10px; /* Добавляем промежутки между элементами */
+        }
+
+        nav a {
+            color: white; /* Белый цвет для ссылок */
+            text-decoration: none; /* Без подчеркивания */
+            font-weight: bold; /* Жирный шрифт для ссылок */
+        }
+
+        nav a:hover {
+            text-decoration: underline; /* Подчеркивание при наведении */
+            color: #f5c542; /* Цвет при наведении на ссылки */
+        }
+
+        /* Стиль для основного контента */
+        .container {
+            padding: 20px; /* Отступы внутри контейнера */
+        }
+
+        section {
+            background-color: #f5f5f5; /* Светлый фон для секций */
+            color: #333; /* Тёмный цвет текста */
+            padding: 20px; /* Добавление отступов */
+            margin-bottom: 20px; /* Отступы между секциями */
+        }
+
+        section h2 {
+            color: #007bff; /* Синий цвет заголовков */
+        }
+
+        /* Стиль нижнего колонтитула (footer) */
+        footer {
+            background-color: #333; /* Тёмный цвет для фона */
+            color: white; /* Белый цвет текста */
+            text-align: center; /* Выравнивание по центру */
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
-<h1 th:text="'hello ' +${#authentication.getPrincipal().getName()}"> </h1>
 
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th scope="col">id</th>
-        <th scope="col">name</th>
-        <th scope="col">email</th>
-        <th scope="col">password</th>
-        <th sec:authorize="hasAuthority('ADMIN_ROLE')" scope="col">action</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="user:${user}">
-        <th th:text="${user.getId()}"  scope="row"></th>
-        <td th:text="${user.getName()}"></td>
-        <td th:text="${user.getEmail()}"></td>
-        <td th:text="${user.getPassword}"></td>
-        <td sec:authorize="hasAuthority('ADMIN_ROLE')" scope="col"><button>Delete</button></td>
+<!-- Заголовок (header) -->
+<header>
+    <h1>Интернет-магазин товаров для взрослых</h1>
+    <p>Лучшее место для поиска товаров для взрослых</p>
+</header>
 
-        <td></td>
-        <td></td>
-    </tr>
+<!-- Секция навигации -->
+<nav>
+    <ul>
+        <li><a href="/">Главная</a></li>
+        <li><a href="/categories">Категории</a></li>
+        <li><a href="/products">Все товары</a></li>
+        <li><a href="/registration">Регистрация</a></li>
+        <li><a href="/login">Войти</a></li>
+    </ul>
+</nav>
 
-    </tbody>
-</table>
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Logout">
+<!-- Основной контент -->
+<div class="container">
 
-</form>
+    <!-- Первая секция с описанием -->
+    <section>
+        <h2>Наши категории</h2>
+        <p>Мы предлагаем множество категорий товаров, включая:</p>
+        <ul> <!-- Список в колонке -->
+            <li>Игрушки для взрослых</li>
+            <li>Бельё и одежда</li>
+            <li>Средства для ухода и смазки</li>
+            <li>Связанные аксессуары</li>
+        </ul>
+    </section>
 
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
+    <!-- Вторая секция с описанием -->
+    <section>
+        <h2>Популярные товары</h2>
+        <p>Наши самые популярные товары включают вибраторы, эротическое бельё, лубриканты и другие интимные устройства.</p>
+    </section>
+
+    <!-- Третья секция с описанием -->
+    <section>
+        <h2>Наши услуги</h2>
+        <p>Мы предлагаем быструю доставку, гарантию на все товары и круглосуточную поддержку клиентов.</p>
+    </section>
+
+</div>
+
+<!-- Нижний колонтитул (footer) -->
+<footer>
+    <p>&copy; 2024 Интернет-магазин товаров для взрослых. Все права защищены.</p>
+    <p>Контактная информация: <a href="mailto:info@example.com">info@example.com</a></p>
+</footer>
+
 </body>
 </html>
