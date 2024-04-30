@@ -30,13 +30,34 @@ public class SecurityConfig {
         return aut;
     }
 
-    @Bean
-    public SecurityFilterChain securityFilterChain (HttpSecurity httpSecurity) throws Exception{
-        httpSecurity.authorizeHttpRequests((req->req.
-                requestMatchers("/registration").permitAll() //доступ всем
-                .anyRequest().authenticated())) // авторизаваным
-                .formLogin((form->form.loginPage("/login").permitAll())).logout((log->log.permitAll()));
-        return httpSecurity.build();
+//    @Bean
+//    public SecurityFilterChain securityFilterChain (HttpSecurity httpSecurity) throws Exception{
+//        httpSecurity.authorizeHttpRequests((req->req.
+//                requestMatchers("/registration").permitAll() //доступ всем
+//                .anyRequest().authenticated())) // авторизаваным
+//                .formLogin((form->form.loginPage("/login").permitAll())).logout((log->log.permitAll()));
+//        return httpSecurity.build();
+//
+//    }
+@Bean
+public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+    httpSecurity
+            .authorizeHttpRequests((req -> req
+                    // Разрешение доступа к определенным маршрутам без аутентификации
+                    .requestMatchers("/categories/**", "/products/**", "/registration", "/login","/").permitAll()
+                    // Требование аутентификации для остальных маршрутов
+                    .requestMatchers("/profile/**", "/orders/**").authenticated()
+                    .anyRequest().authenticated() // По умолчанию все остальные запросы требуют аутентификации
+            ))
+            .formLogin((form -> form
+                    // Настройка страницы входа
+                    .loginPage("/login") // Страница входа
+                    .permitAll() // Разрешение доступа к странице входа без аутентификации
+            ))
+            .logout((log -> log
+                    .permitAll() // Выход доступен всем
+            ));
 
-    }
+    return httpSecurity.build();
+}
 }
