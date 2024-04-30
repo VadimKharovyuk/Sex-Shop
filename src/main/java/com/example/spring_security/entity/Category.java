@@ -20,8 +20,6 @@ public class Category {
 
     private String name; // Название категории
 
-    @Setter
-    @Getter
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Product> products; // Список товаров в этой категории
 

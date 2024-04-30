@@ -14,6 +14,11 @@ import org.springframework.security.web.SecurityFilterChain;
 @AllArgsConstructor
 public class SecurityConfig {
     UserDetailsServiceImpl userDetailsService ;
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
     private BCryptPasswordEncoder encoder(){
         return new BCryptPasswordEncoder();
     }
