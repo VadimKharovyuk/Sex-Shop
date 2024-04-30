@@ -23,4 +23,32 @@ public class UserService {
     public List<UserEntity> getAll(){
         return userRepo.findAll();
     }
+    public UserEntity getUserById(Long id) {
+        return userRepo.findById(id).orElseThrow(() -> new IllegalArgumentException("User not found"));
+    }
+
+    public UserEntity getUserByEmail(String email) {
+        return userRepo.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("User not found"));
+    }
+    public void deleteUser(Long id) {
+        if (userRepo.existsById(id)) {
+            userRepo.deleteById(id);
+        } else {
+            throw new IllegalArgumentException("User with ID " + id + " not found");
+        }
+    }
+    public UserEntity updateUser(Long id, UserEntity user) {
+        if (userRepo.existsById(id)) {
+            UserEntity existingUser = userRepo.findById(id).get();
+            existingUser.setName(user.getName());
+            existingUser.setEmail(user.getEmail());
+            if (user.getPassword() != null) {
+                existingUser.setPassword(passwordEncoder().encode(user.getPassword()));
+            }
+            return userRepo.save(existingUser);
+        } else {
+            throw new IllegalArgumentException("User with ID " + id +"not found");
+        }
+    }
+
 }
