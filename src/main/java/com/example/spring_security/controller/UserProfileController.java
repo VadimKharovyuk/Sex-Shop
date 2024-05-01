@@ -1,6 +1,7 @@
 package com.example.spring_security.controller;
 
 import com.example.spring_security.entity.UserEntity;
+import com.example.spring_security.security.UserDetailsServiceImpl;
 import com.example.spring_security.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.ui.Model;
@@ -16,15 +17,12 @@ public class UserProfileController {
 
     private final UserService userService;
 
-
-    // Метод для отображения страницы профиля пользователя
-    // Получение информации о текущем пользователе
     @GetMapping
     public String getUserProfile(Model model) {
         // Получение текущего аутентифицированного пользователя
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if (authentication == null) {
+        if (authentication == null || !authentication.isAuthenticated()) {
             throw new IllegalStateException("Пользователь не аутентифицирован");
         }
 
@@ -40,7 +38,7 @@ public class UserProfileController {
         // Передача данных в модель
         model.addAttribute("user", user);
 
-        return "user_profile"; // Имя шаблона
+        return "user_profile"; // Имя шаблона для отображения личного кабинета
     }
 
     // Обновление данных пользователя

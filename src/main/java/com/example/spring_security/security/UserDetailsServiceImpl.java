@@ -8,10 +8,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
-    UserRepo userRepo ;
+   private final UserRepo userRepo ;
 
     @Override
     public UserDetailsImpl loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -19,4 +21,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .orElseThrow(()->new UsernameNotFoundException("Пользователя не  найден с  email " +username +" не найден")) ;
         return UserDetailsImpl.build(userEntity) ;
     }
+    public UserEntity getUserByEmail(String email) {
+        Optional<UserEntity> userOpt = userRepo.findByEmail(email);
+
+        if (!userOpt.isPresent()) {
+            throw new IllegalArgumentException("Пользователь с email '" + email + "' не найден");
+        }
+
+        return userOpt.get();
+    }
+
 }

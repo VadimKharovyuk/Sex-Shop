@@ -64,23 +64,17 @@
 </nav>
 <body>
 <div class="profile-container">
-    <!-- Заголовок страницы -->
+    <!-- Заголовок -->
     <div class="profile-header">
         <h1>Личный кабинет</h1>
-        <p>Добро пожаловать, {{ user.name }}</p> <!-- Имя пользователя -->
+        <p>Добро пожаловать, ${user.name}!</p> <!-- Имя пользователя -->
     </div>
 
     <!-- Информация о пользователе -->
     <div class="profile-info">
-        <p><strong>Имя:</strong> {{ user.name }}</p> <!-- Имя пользователя -->
-        <p><strong>Email:</strong> {{ user.email }}</p> <!-- Email пользователя -->
+        <p><strong>Имя:</strong> ${user.name}</p> <!-- Имя пользователя -->
+        <p><strong>Email:</strong> ${user.email}</p> <!-- Email пользователя -->
         <!-- Добавьте другие детали профиля, если нужно -->
-    </div>
-
-    <!-- Действия в профиле -->
-    <div class="profile-actions">
-        <a href="/profile/edit" class="btn">Редактировать профиль</a> <!-- Кнопка редактирования -->
-        <a href="/logout" class="btn">Выйти</a> <!-- Кнопка выхода -->
     </div>
 </div>
 </body>
