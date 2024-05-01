@@ -53,6 +53,8 @@
 
     </style>
 </head>
+<body>
+<!-- Навигация -->
 <nav>
     <ul>
         <li><a href="/">Главная</a></li>
@@ -62,19 +64,25 @@
         <li><a href="/login">Войти</a></li>
     </ul>
 </nav>
-<body>
+
+<!-- Контейнер профиля -->
 <div class="profile-container">
     <!-- Заголовок -->
     <div class="profile-header">
         <h1>Личный кабинет</h1>
-        <p>Добро пожаловать, ${user.name}!</p> <!-- Имя пользователя -->
+        <p>Добро пожаловать, <span th:text="${user.name}">Имя пользователя</span>!</p> <!-- Имя пользователя -->
     </div>
 
     <!-- Информация о пользователе -->
     <div class="profile-info">
-        <p><strong>Имя:</strong> ${user.name}</p> <!-- Имя пользователя -->
-        <p><strong>Email:</strong> ${user.email}</p> <!-- Email пользователя -->
-        <!-- Добавьте другие детали профиля, если нужно -->
+        <p><strong>Имя:</strong> <span th:text="${user.name}">Имя пользователя</span></p> <!-- Имя пользователя -->
+        <p><strong>Email:</strong> <span th:text="${user.email}">Email пользователя</span></p> <!-- Email пользователя -->
+    </div>
+
+    <!-- Блок действий -->
+    <div class="profile-actions">
+        <!-- Кнопка выхода -->
+        <a href="/logout" class="btn">Выйти</a> <!-- Добавление кнопки выхода -->
     </div>
 </div>
 </body>

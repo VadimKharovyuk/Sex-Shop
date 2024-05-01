@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Детали товара</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css"> <!-- Подключение стилей -->
+</head>
+<body>
+<!-- Заголовок страницы -->
+<h1>Детали товара</h1>
+
+<!-- Проверка, есть ли продукт -->
+<div th:if="${product != null}"> <!-- Проверка, передан ли продукт -->
+
+    <!-- Отображение деталей продукта -->
+    <div>
+        <h2 th:text="${product.name}">Название продукта</h2> <!-- Название продукта -->
+        <p th:text="${product.description}">Описание продукта</p> <!-- Описание продукта -->
+        <p>Цена: <span th:text="${product.price}">Цена продукта</span></p> <!-- Цена продукта -->
+
+        <!-- Изображение продукта, если есть -->
+        <div th:if="${product.image != null}">
+            <img th:src="${product.image}" th:alt="${product.name}"> <!-- Изображение продукта -->
+        </div>
+    </div>
+
+</div>
+
+<!-- Сообщение, если продукта нет -->
+<div th:if="${product == null}">
+    <p>Продукт не найден.</p> <!-- Сообщение, если продукт не найден -->
+</div>
+
+</body>
+</html>

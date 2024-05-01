@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Результаты поиска</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css"> <!-- Подключение стилей -->
+</head>
+<body>
+<!-- Заголовок страницы -->
+<h1>Результаты поиска</h1>
+
+<!-- Отображение запроса, по которому проводился поиск -->
+<p>Вы искали: <span th:text="${query}"></span></p>
+
+<!-- Проверка, есть ли продукты в списке -->
+<p th:if="${#lists.size(products) > 0}">Найдено <span th:text="${#lists.size(products)}">0</span> результатов.</p>
+<p th:if="${#lists.size(products) == 0}">По вашему запросу ничего не найдено.</p>
+
+<!-- Отображение списка найденных продуктов -->
+<ul th:if="${#lists.size(products) > 0}">
+    <!-- Цикл по продуктам -->
+    <li th:each="product : ${products}">
+        <strong th:text="${product.name}">Название продукта</strong> <!-- Название продукта -->
+        <p th:text="${product.description}">Описание продукта</p> <!-- Описание продукта -->
+        <p>Цена: <span th:text="${product.price}">Цена продукта</span></p> <!-- Цена продукта -->
+
+        <!-- Изображение продукта, если оно есть -->
+        <div th:if="${product.image != null}">
+            <img th:src="${product.image}" th:alt="${product.name}"> <!-- Изображение продукта -->
+        </div>
+
+        <!-- Ссылка на детали продукта -->
+        <a th:href="@{'/products/' + ${product.id}}">Подробнее</a> <!-- Ссылка на страницу деталей продукта -->
+    </li>
+</ul>
+</body>
+</html>
