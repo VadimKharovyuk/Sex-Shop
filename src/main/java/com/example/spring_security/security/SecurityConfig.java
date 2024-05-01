@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -33,33 +34,31 @@ public class SecurityConfig {
 //    @Bean
 //    public SecurityFilterChain securityFilterChain (HttpSecurity httpSecurity) throws Exception{
 //        httpSecurity.authorizeHttpRequests((req->req.
-//                requestMatchers("/registration").permitAll() //доступ всем
+//                requestMatchers("/registration","/categories/**","/products/**","/login","/").permitAll() //доступ всем
 //                .anyRequest().authenticated())) // авторизаваным
-//                .formLogin((form->form.loginPage("/login").permitAll())).logout((log->log.permitAll()));
+//                .formLogin((form->form.loginPage("/login").permitAll())).logout((LogoutConfigurer::permitAll));
 //        return httpSecurity.build();
 //
 //    }
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .authorizeHttpRequests((req -> req
-                        // Разрешение доступа к определенным маршрутам без аутентификации
-                        .requestMatchers("/categories/**", "/products/**", "/registration", "/login", "/", "/static/pic/**", "/templates/pic/**").permitAll() // Разрешить открытый доступ
-                        // Требование аутентификации для остальных маршрутов
-                        .requestMatchers("/profile/**", "/orders/**").authenticated()
-                        .anyRequest().authenticated() // По умолчанию все остальные запросы требуют аутентификации
+                        .requestMatchers("/categories/**", "/products/**", "/registration", "/login", "/", "/static/pic/**", "/templates/pic/**").permitAll() // Разрешение на открытый доступ
+                        .requestMatchers("/profile/**", "/orders/**").authenticated() // Требование аутентификации
+                        .anyRequest().authenticated() // Любые другие запросы также требуют аутентификации
                 ))
                 .formLogin((form -> form
-                        // Настройка страницы входа
-                        .loginPage("/login") // Страница входа
-                        .permitAll() // Разрешение на доступ без аутентификации
+                        .loginPage("/login") // Настройка страницы входа
+                        .permitAll() // Разрешить доступ к странице входа
                 ))
                 .logout((log -> log
                         .logoutUrl("/logout") // URL для выхода из системы
                         .logoutSuccessUrl("/login") // Перенаправление после успешного выхода
-                        .permitAll() // Разрешить доступ к выходу без аутентификации
-                ));
+                        .permitAll() // Разрешение на выход без аутентификации
+                )).csrf().disable(); // Отключение CSRF, если это необходимо
 
         return httpSecurity.build();
     }
