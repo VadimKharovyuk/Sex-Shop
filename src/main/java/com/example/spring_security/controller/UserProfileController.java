@@ -16,15 +16,31 @@ public class UserProfileController {
 
     private final UserService userService;
 
+
+    // Метод для отображения страницы профиля пользователя
     // Получение информации о текущем пользователе
     @GetMapping
     public String getUserProfile(Model model) {
+        // Получение текущего аутентифицированного пользователя
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = authentication.getName();
 
+        if (authentication == null) {
+            throw new IllegalStateException("Пользователь не аутентифицирован");
+        }
+
+        String currentUsername = authentication.getName(); // Имя или email пользователя
+
+        // Получение данных пользователя из базы данных
         UserEntity user = userService.getUserByEmail(currentUsername);
+
+        if (user == null) {
+            throw new IllegalArgumentException("Пользователь с email '" + currentUsername + "' не найден");
+        }
+
+        // Передача данных в модель
         model.addAttribute("user", user);
-        return "user_profile"; // Имя шаблона для отображения личного кабинета
+
+        return "user_profile"; // Имя шаблона
     }
 
     // Обновление данных пользователя

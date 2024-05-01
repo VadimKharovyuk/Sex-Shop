@@ -39,25 +39,28 @@ public class SecurityConfig {
 //        return httpSecurity.build();
 //
 //    }
-@Bean
-public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-    httpSecurity
-            .authorizeHttpRequests((req -> req
-                    // Разрешение доступа к определенным маршрутам без аутентификации
-                    .requestMatchers("/categories/**", "/products/**", "/registration", "/login","/").permitAll()
-                    // Требование аутентификации для остальных маршрутов
-                    .requestMatchers("/profile/**", "/orders/**").authenticated()
-                    .anyRequest().authenticated() // По умолчанию все остальные запросы требуют аутентификации
-            ))
-            .formLogin((form -> form
-                    // Настройка страницы входа
-                    .loginPage("/login") // Страница входа
-                    .permitAll() // Разрешение доступа к странице входа без аутентификации
-            ))
-            .logout((log -> log
-                    .permitAll() // Выход доступен всем
-            ));
 
-    return httpSecurity.build();
-}
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity
+                .authorizeHttpRequests((req -> req
+                        // Разрешение доступа к определенным маршрутам без аутентификации
+                        .requestMatchers("/categories/**", "/products/**", "/registration", "/login", "/", "/static/pic/**", "/templates/pic/**").permitAll() // Разрешить открытый доступ
+                        // Требование аутентификации для остальных маршрутов
+                        .requestMatchers("/profile/**", "/orders/**").authenticated()
+                        .anyRequest().authenticated() // По умолчанию все остальные запросы требуют аутентификации
+                ))
+                .formLogin((form -> form
+                        // Настройка страницы входа
+                        .loginPage("/login") // Страница входа
+                        .permitAll() // Разрешение на доступ без аутентификации
+                ))
+                .logout((log -> log
+                        .logoutUrl("/logout") // URL для выхода из системы
+                        .logoutSuccessUrl("/login") // Перенаправление после успешного выхода
+                        .permitAll() // Разрешить доступ к выходу без аутентификации
+                ));
+
+        return httpSecurity.build();
+    }
 }

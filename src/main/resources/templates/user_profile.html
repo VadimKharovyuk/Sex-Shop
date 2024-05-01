@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Личный кабинет</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css"> <!-- Подключение CSS -->
+    <style>
+        /* Основные стили для страницы */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5; /* Светлый фон для страницы */
+        }
+
+        /* Стиль контейнера */
+        .profile-container {
+            max-width: 800px; /* Максимальная ширина контейнера */
+            margin: 20px auto; /* Центрирование контейнера по горизонтали */
+            background-color: white; /* Белый фон */
+            border: 1px solid #ddd; /* Легкая рамка */
+            padding: 20px; /* Внутренние отступы */
+        }
+
+        /* Стиль заголовка */
+        .profile-header {
+            text-align: center; /* Центрирование текста */
+            color: #333; /* Темный цвет текста */
+        }
+
+        /* Стили для информации о пользователе */
+        .profile-info {
+            margin-top: 20px; /* Отступ сверху */
+        }
+
+        /* Стиль для кнопок */
+        .profile-actions {
+            text-align: center; /* Центрирование кнопок */
+            margin-top: 20px; /* Отступ сверху */
+        }
+
+        .btn {
+            background-color: #007bff; /* Синий цвет кнопок */
+            color: white; /* Белый цвет текста */
+            padding: 10px 20px; /* Внутренние отступы */
+            text-decoration: none; /* Убрать подчеркивание */
+            border: none; /* Убрать рамку */
+            border-radius: 5px; /* Скругленные углы */
+            transition: all 0.3s; /* Плавный переход при наведении */
+        }
+
+        .btn:hover {
+            background-color: #0056b3; /* Изменение цвета при наведении */
+        }
+
+    </style>
+</head>
+<nav>
+    <ul>
+        <li><a href="/">Главная</a></li>
+        <li><a href="/categories">Категории</a></li>
+        <li><a href="/products">Все товары</a></li>
+        <li><a href="/registration">Регистрация</a></li>
+        <li><a href="/login">Войти</a></li>
+    </ul>
+</nav>
+<body>
+<div class="profile-container">
+    <!-- Заголовок страницы -->
+    <div class="profile-header">
+        <h1>Личный кабинет</h1>
+        <p>Добро пожаловать, {{ user.name }}</p> <!-- Имя пользователя -->
+    </div>
+
+    <!-- Информация о пользователе -->
+    <div class="profile-info">
+        <p><strong>Имя:</strong> {{ user.name }}</p> <!-- Имя пользователя -->
+        <p><strong>Email:</strong> {{ user.email }}</p> <!-- Email пользователя -->
+        <!-- Добавьте другие детали профиля, если нужно -->
+    </div>
+
+    <!-- Действия в профиле -->
+    <div class="profile-actions">
+        <a href="/profile/edit" class="btn">Редактировать профиль</a> <!-- Кнопка редактирования -->
+        <a href="/logout" class="btn">Выйти</a> <!-- Кнопка выхода -->
+    </div>
+</div>
+</body>
+</html>
