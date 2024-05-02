@@ -33,60 +33,60 @@ public class CustomerOrderService {
     }
 
 
-    // Получение или создание корзины для пользователя
-    public CustomerOrder getOrCreateCartForUser(String username) {
-        UserEntity user = userService.getUserByEmail(username)
-                .orElseThrow(() -> new IllegalArgumentException("Пользователь не найден"));
+//    // Получение или создание корзины для пользователя
+//    public CustomerOrder getOrCreateCartForUser(String username) {
+//        UserEntity user = userService.getUserByEmail(username)
+//                .orElseThrow(() -> new IllegalArgumentException("Пользователь не найден"));
+//
+//        // Поиск существующей корзины пользователя
+//        Optional<CustomerOrder> existingCart = orderRepository.findCartByUserId(user.getId());
+//
+//        return existingCart.orElseGet(() -> {
+//            // Если корзина не найдена, создаем новую
+//            CustomerOrder newCart = new CustomerOrder();
+//            newCart.setUser(user);
+//            newCart.setStatus("Cart");
+//            return orderRepository.save(newCart);
+//        });
+//    }
 
-        // Поиск существующей корзины пользователя
-        Optional<CustomerOrder> existingCart = orderRepository.findCartByUserId(user.getId());
-
-        return existingCart.orElseGet(() -> {
-            // Если корзина не найдена, создаем новую
-            CustomerOrder newCart = new CustomerOrder();
-            newCart.setUser(user);
-            newCart.setStatus("Cart");
-            return orderRepository.save(newCart);
-        });
-    }
-
-    public void addProductToCart(Long productId, String username) {
-        try {
-            Product product = productService.getProductById(productId)
-                    .orElseThrow(() -> new IllegalArgumentException("Продукт не найден"));
-
-            UserEntity user = userService.getUserByEmail(username)
-                    .orElseThrow(() -> new IllegalArgumentException("Пользователь не найден"));
-
-            CustomerOrder cart = getOrCreateCartForUser(username);
-
-            OrderItem orderItem = new OrderItem();
-            orderItem.setProduct(product);
-            orderItem.setQuantity(1); // Устанавливаем количество по умолчанию
-            orderItem.setOrder(cart);
-
-            cart.getOrderItems().add(orderItem);
-
-            orderRepository.save(cart);
-
-        } catch (IllegalArgumentException e) {
-            logger.error("Ошибка при добавлении продукта в корзину: ", e);
-            throw e;
-        }
-    }
-
-    public CustomerOrder getCartForUser(String username) {
-        UserEntity user = userService.getUserByEmail(username)
-                .orElseThrow(() -> new IllegalArgumentException("Пользователь с именем " + username + " не найден"));
-
-        // Поиск существующей корзины пользователя
-        Optional<CustomerOrder> cartOptional = orderRepository.findCartByUserId(user.getId());
-
-        return cartOptional.orElseGet(() -> {
-            // Если корзина не найдена, создаем новую
-            return createNewCartForUser(user);
-        });
-    }
+//    public void addProductToCart(Long productId, String username) {
+//        try {
+//            Product product = productService.getProductById(productId)
+//                    .orElseThrow(() -> new IllegalArgumentException("Продукт не найден"));
+//
+//            UserEntity user = userService.getUserByEmail(username)
+//                    .orElseThrow(() -> new IllegalArgumentException("Пользователь не найден"));
+//
+//            CustomerOrder cart = getOrCreateCartForUser(username);
+//
+//            OrderItem orderItem = new OrderItem();
+//            orderItem.setProduct(product);
+//            orderItem.setQuantity(1); // Устанавливаем количество по умолчанию
+//            orderItem.setOrder(cart);
+//
+//            cart.getOrderItems().add(orderItem);
+//
+//            orderRepository.save(cart);
+//
+//        } catch (IllegalArgumentException e) {
+//            logger.error("Ошибка при добавлении продукта в корзину: ", e);
+//            throw e;
+//        }
+//    }
+//
+//    public CustomerOrder getCartForUser(String username) {
+//        UserEntity user = userService.getUserByEmail(username)
+//                .orElseThrow(() -> new IllegalArgumentException("Пользователь с именем " + username + " не найден"));
+//
+//        // Поиск существующей корзины пользователя
+//        Optional<CustomerOrder> cartOptional = orderRepository.findCartByUserId(user.getId());
+//
+//        return cartOptional.orElseGet(() -> {
+//            // Если корзина не найдена, создаем новую
+//            return createNewCartForUser(user);
+//        });
+//    }
 
     private CustomerOrder createNewCartForUser(UserEntity user) {
         CustomerOrder newCart = new CustomerOrder();

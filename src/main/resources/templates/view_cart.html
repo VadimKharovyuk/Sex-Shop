@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Корзина</title>
+  <link rel="stylesheet" type="text/css" href="/static/styles.css"> <!-- Подключение стилей -->
+  <style>
+    /* Общий стиль для страницы */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5; /* Светлый фон для всей страницы */
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Заголовок страницы */
+    h1 {
+      text-align: center; /* Центрирование заголовка */
+      color: #333; /* Тёмный цвет текста */
+      padding: 20px; /* Отступы внутри заголовка */
+    }
+
+    /* Стили для списка товаров в корзине */
+    ul {
+      list-style-type: none; /* Убираем стандартные маркеры списка */
+      padding: 0; /* Убираем отступы */
+      margin: 0; /* Убираем отступы */
+    }
+
+    /* Стили для элементов списка (товаров в корзине) */
+    li {
+      border-bottom: 1px solid #ddd; /* Разделитель между товарами */
+      padding: 15px; /* Внутренние отступы */
+      transition: background-color 0.3s; /* Плавное изменение цвета фона */
+    }
+
+    li:hover {
+      background-color: #f0f0f0; /* Цвет при наведении */
+    }
+
+    /* Ссылки */
+    a {
+      color: #007bff; /* Синий цвет ссылок */
+      text-decoration: none; /* Убираем подчеркивание по умолчанию */
+      transition: color 0.3s; /* Плавное изменение цвета */
+    }
+
+    a:hover {
+      color: #0056b3; /* Цвет при наведении на ссылку */
+      text-decoration: underline; /* Подчеркивание при наведении */
+    }
+
+    /* Кнопки */
+    .btn {
+      display: inline-block;
+      background-color: #007bff; /* Синий цвет кнопок */
+      color: white; /* Белый цвет текста */
+      padding: 10px 20px; /* Внутренние отступы */
+      text-decoration: none; /* Убираем подчеркивание */
+      border-radius: 5px; /* Скругленные углы */
+      border: none; /* Убираем рамку */
+      transition: all 0.3s; /* Плавное изменение */
+    }
+
+    .btn:hover {
+      background-color: #0056b3; /* Изменение цвета при наведении */
+    }
+
+  </style>
+</head>
+<body>
+<!-- Заголовок страницы -->
+<h1>Моя корзина</h1>
+
+<!-- Проверка, есть ли товары в корзине -->
+<div th:if="${cart.orderItems != null && !cart.orderItems.isEmpty()}">
+  <ul>
+    <!-- Перебор всех товаров в корзине -->
+    <li th:each="orderItem : ${cart.orderItems}">
+      <strong th:text="${orderItem.product.name}">Название товара</strong> <!-- Название товара -->
+      <p th:text="${orderItem.product.description}">Описание товара</p> <!-- Описание товара -->
+      <p>Количество: <span th:text="${orderItem.quantity}">Количество товара</span></p> <!-- Количество товара -->
+      <p>Цена за штуку: <span th:text="${orderItem.product.price}">Цена товара</span></p> <!-- Цена товара -->
+
+      <!-- Ссылка для удаления товара из корзины -->
+      <a th:href="@{/cart/remove/{productId}(productId=${orderItem.product.id})}">Удалить из корзины</a> <!-- Ссылка для удаления товара -->
+    </li>
+  </ul>
+
+  <!-- Общая сумма заказа -->
+  <h2>Общая сумма:
+    <span th:text="${#numbers.formatDecimal(cart.orderItems.stream().mapToDouble(oi -> oi.product.price * oi.quantity).sum(), 2)}">0.00</span> <!-- Подсчет общей суммы -->
+  </h2>
+
+  <!-- Кнопка оформления заказа -->
+  <a href="/order/checkout" class="btn">Оформить заказ</a> <!-- Ссылка на оформление заказа -->
+</div>
+
+<!-- Сообщение, если корзина пуста -->
+<div th:if="${cart.orderItems == null || cart.orderItems.isEmpty()}">
+  <p>Ваша корзина пуста. Добавьте товары для оформления заказа.</p>
+</div>
+</body>
+</html>

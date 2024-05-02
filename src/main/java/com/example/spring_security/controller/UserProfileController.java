@@ -21,26 +21,16 @@ public class UserProfileController {
 
     @GetMapping
     public String getUserProfile(Model model) {
-        // Получение текущего аутентифицированного пользователя
+        // Получение аутентифицированного пользователя
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
 
-        if (authentication == null || !authentication.isAuthenticated()) {
-            throw new IllegalStateException("Пользователь не аутентифицирован");
-        }
+        UserEntity user = userService.getUserByEmail(username)
+                .orElseThrow(() -> new IllegalArgumentException("Пользователь с именем " + username + " не найден"));
 
-        String currentUsername = authentication.getName(); // Имя или email пользователя
+        model.addAttribute("user", user); // Добавление объекта `user` в модель
 
-        // Получение данных пользователя из базы данных
-        Optional<UserEntity> user = userService.getUserByEmail(currentUsername);
-
-        if (user == null) {
-            throw new IllegalArgumentException("Пользователь с email '" + currentUsername + "' не найден");
-        }
-
-        // Передача данных в модель
-        model.addAttribute("user", user);
-
-        return "user_profile"; // Имя шаблона для отображения личного кабинета
+        return "user_profile"; // Имя шаблона
     }
 
     // Обновление данных пользователя

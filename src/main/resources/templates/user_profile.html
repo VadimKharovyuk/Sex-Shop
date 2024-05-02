@@ -87,3 +87,49 @@
 </div>
 </body>
 </html>
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Личный кабинет</title>-->
+<!--    <link rel="stylesheet" type="text/css" href="/static/styles.css"> &lt;!&ndash; Подключение CSS &ndash;&gt;-->
+<!--</head>-->
+<!--<body>-->
+<!--&lt;!&ndash; Контейнер профиля &ndash;&gt;-->
+<!--<div class="profile-container">-->
+<!--    &lt;!&ndash; Заголовок &ndash;&gt;-->
+<!--    <div class="profile-header">-->
+<!--        <h1>Личный кабинет</h1>-->
+
+<!--        &lt;!&ndash; Условное отображение имени пользователя &ndash;&gt;-->
+<!--        <div th:if="${user != null}">-->
+<!--            <p>Добро пожаловать, <span th:text="${user.name}">Имя пользователя</span>!</p> &lt;!&ndash; Имя пользователя &ndash;&gt;-->
+<!--        </div>-->
+<!--        <div th:if="${user == null}">-->
+<!--            <p>Информация о пользователе недоступна.</p> &lt;!&ndash; Сообщение, если пользователь недоступен &ndash;&gt;-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Информация о пользователе &ndash;&gt;-->
+<!--    <div class="profile-info">-->
+<!--        &lt;!&ndash; Условное отображение информации о пользователе &ndash;&gt;-->
+<!--        <div th:if="${user != null}">-->
+<!--            <p><strong>Имя:</strong> <span th:text="${user.name}"></span></p> &lt;!&ndash; Имя пользователя &ndash;&gt;-->
+<!--            <p><strong>Email:</strong> <span th:text="${user.email}"></span></p> &lt;!&ndash; Email пользователя &ndash;&gt;-->
+<!--        </div>-->
+<!--        <div th:if="${user == null}">-->
+<!--            <p>Информация о пользователе недоступна.</p> &lt;!&ndash; Сообщение, если информация недоступна &ndash;&gt;-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Блок действий &ndash;&gt;-->
+<!--    <div class="profile-actions">-->
+<!--        &lt;!&ndash; Кнопка выхода &ndash;&gt;-->
+<!--        <a href="/logout" class="btn">Выйти</a> &lt;!&ndash; Кнопка выхода &ndash;&gt;-->
+<!--    </div>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+

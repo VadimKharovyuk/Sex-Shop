@@ -21,27 +21,27 @@ public class CartController {
 
 
     // Добавление продукта в корзину
-    @GetMapping("/add/{productId}")
-    public String addProductToCart(@PathVariable Long productId, Principal principal) {
-        // Получение текущего пользователя
-        String username = principal.getName();
-
-        // Добавление продукта в корзину пользователя
-        customerOrderService.addProductToCart(productId, username);
-
-        return "redirect:/cart/view"; // Перенаправление на страницу просмотра корзины
-    }
+//    @GetMapping("/add/{productId}")
+//    public String addProductToCart(@PathVariable Long productId, Principal principal) {
+//        // Получение текущего пользователя
+//        String username = principal.getName();
+//
+//        // Добавление продукта в корзину пользователя
+//        customerOrderService.addProductToCart(productId, username);
+//
+//        return "redirect:/cart/view"; // Перенаправление на страницу просмотра корзины
+//    }
 
     // Просмотр корзины
-    @GetMapping("/view")
-    public String viewCart(Principal principal, Model model) {
-        // Получение текущего пользователя
-        String username = principal.getName();
-
-        // Получение корзины пользователя
-        CustomerOrder cart = customerOrderService.getCartForUser(username);
-
-        model.addAttribute("cart", cart);
-        return "view_cart"; // Имя шаблона для отображения корзины
-    }
+//    @GetMapping("/view")
+//    public String viewCart(Principal principal, Model model) {
+//        // Получение текущего пользователя
+//        String username = principal.getName();
+//
+//        // Получение корзины пользователя
+//        CustomerOrder cart = customerOrderService.getCartForUser(username);
+//
+//        model.addAttribute("cart", cart);
+//        return "view_cart"; // Имя шаблона для отображения корзины
+//    }
 }
