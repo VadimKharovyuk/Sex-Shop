@@ -29,9 +29,11 @@
         <h2 th:text="${product.name}">Название продукта</h2>
         <p th:text="${product.description}">Описание продукта</p>
         <p>Цена: <span th:text="${product.price}">Цена продукта</span></p>
+        <a th:href="@{'/cart/add/' + ${product.id}}">Добавить в корзину</a> <!-- Ссылка для добавления в корзину -->
         <a th:href="@{'/products/' + ${product.id}}">Подробнее</a>
     </div>
 </div>
+
 
 </body>
 </html>

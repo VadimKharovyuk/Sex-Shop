@@ -62,6 +62,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -76,6 +77,7 @@ public class UserService {
 
 
 
+
     public List<UserEntity> getAll() {
         return userRepo.findAll(); // Возвращаем всех пользователей
     }
@@ -85,10 +87,10 @@ public class UserService {
                 .orElseThrow(() -> new IllegalArgumentException("User with ID " + id + " not found"));
     }
 
-    public UserEntity getUserByEmail(String email) {
-        return userRepo.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("User with email " + email + " not found"));
+    public Optional<UserEntity> getUserByEmail(String email) {
+        return userRepo.findByEmail(email);
     }
+
 
     public void deleteUser(Long id) {
         if (userRepo.existsById(id)) {

@@ -8,9 +8,7 @@ import java.util.List;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order,Long> {
-    List<Order> findAllByUser_Id(Long userId);
-    // Пример дополнительных методов, если необходимо
-    List<Order> findByUserId(Long userId); // Найти заказы по идентификатору пользователя
-
+    List<Order> findAllByUser_Id(Long userId); // Найти все заказы по ID пользователя
+    List<Order> findByUserId(Long userId); // Найти заказы по ID пользователя
     List<Order> findByStatus(String status); // Найти заказы по статусу
 }

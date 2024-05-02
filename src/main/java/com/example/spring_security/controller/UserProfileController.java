@@ -10,6 +10,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @Controller
 @RequestMapping("/profile") // Базовый путь для личного кабинета
 @AllArgsConstructor
@@ -29,7 +31,7 @@ public class UserProfileController {
         String currentUsername = authentication.getName(); // Имя или email пользователя
 
         // Получение данных пользователя из базы данных
-        UserEntity user = userService.getUserByEmail(currentUsername);
+        Optional<UserEntity> user = userService.getUserByEmail(currentUsername);
 
         if (user == null) {
             throw new IllegalArgumentException("Пользователь с email '" + currentUsername + "' не найден");
