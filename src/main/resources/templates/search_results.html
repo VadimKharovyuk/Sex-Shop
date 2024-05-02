@@ -3,35 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <title>Результаты поиска</title>
-    <link rel="stylesheet" type="text/css" href="/static/styles.css"> <!-- Подключение стилей -->
+    <!-- Подключение кастомного CSS -->
+    <link rel="stylesheet" type="text/css" href="/static/styles.css">
+    <style>
+        /* Общие стили */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5; /* Светлый фон */
+        }
+
+        /* Стили для заголовка */
+        .page-title {
+            text-align: center; /* Центрирование текста */
+            margin: 20px 0; /* Отступы сверху и снизу */
+        }
+
+        /* Стили для контейнера */
+        .container {
+            width: 80%; /* Ширина контейнера */
+            margin: 0 auto; /* Центрирование по горизонтали */
+        }
+
+        /* Стили для списка результатов поиска */
+        .search-results {
+            list-style-type: none; /* Удалить маркеры */
+            padding: 0; /* Убрать отступы */
+        }
+
+        .search-results .product {
+            border: 1px solid #ddd; /* Рамка вокруг элементов */
+            margin-bottom: 10px; /* Отступы между элементами */
+            padding: 10px; /* Внутренние отступы */
+        }
+
+        .product-title {
+            font-weight: bold; /* Жирный шрифт для названия продукта */
+        }
+
+        .product-description {
+            color: #555; /* Светло-серый цвет */
+        }
+
+        /* Стили для изображения продукта */
+        .product-image {
+            max-width: 100%; /* Адаптивная ширина изображения */
+            height: auto; /* Поддержка пропорций */
+        }
+
+        /* Стили для кнопки "Подробнее" */
+        .more-button {
+            background-color: #007bff; /* Синий фон */
+            color: white; /* Белый текст */
+            padding: 10px 20px; /* Внутренние отступы */
+            text-decoration: none; /* Без подчеркивания */
+            border-radius: 5px; /* Скругленные углы */
+        }
+
+        .more-button:hover {
+            background-color: #0056b3; /* Темно-синий при наведении */
+        }
+        nav {
+            background-color: #333; /* Темный фон */
+            padding: 10px; /* Внутренние отступы */
+        }
+
+        nav ul {
+            list-style-type: none; /* Убираем стандартные маркеры списка */
+            margin: 0; /* Без внешних отступов */
+            padding: 0; /* Без внутренних отступов */
+            display: flex; /* Используем flexbox для выравнивания элементов */
+            justify-content: space-around; /* Равномерное распределение по горизонтали */
+        }
+
+        nav ul li {
+            display: inline; /* Элементы списка отображаются в одну линию */
+        }
+
+        nav ul li a {
+            color: white; /* Белый цвет текста */
+            text-decoration: none; /* Без подчеркивания */
+            padding: 10px 15px; /* Добавляем отступы для кликабельности */
+            transition: background-color 0.3s; /* Плавный переход при наведении */
+        }
+
+        nav ul li a:hover {
+            background-color: #555; /* Темный фон при наведении */
+        }
+    </style>
 </head>
+<nav>
+    <ul>
+        <li><a href="/">Главная</a></li>
+        <li><a href="/categories">Категории</a></li>
+        <li><a href="/products">Все товары</a></li>
+        <li><a href="/registration">Регистрация</a></li>
+        <li><a href="/profile">Войти в акаунт</a></li>
+        <li><a href="/logout">Выйти</a></li>
+    </ul>
+</nav>
 <body>
-<!-- Заголовок страницы -->
-<h1>Результаты поиска</h1>
+<div class="container">
+    <h1 class="page-title">Результаты поиска</h1>
 
-<!-- Отображение запроса, по которому проводился поиск -->
-<p>Вы искали: <span th:text="${query}"></span></p>
+    <!-- Отображение запроса, по которому проводился поиск -->
+    <p>Вы искали: <span th:text="${query}"></span></p>
 
-<!-- Проверка, есть ли продукты в списке -->
-<p th:if="${#lists.size(products) > 0}">Найдено <span th:text="${#lists.size(products)}">0</span> результатов.</p>
-<p th:if="${#lists.size(products) == 0}">По вашему запросу ничего не найдено.</p>
+    <!-- Проверка, есть ли продукты в списке -->
+    <p th:if="${#lists.size(products) > 0}">Найдено <span th:text="${#lists.size(products)}">0</span> результатов.</p>
+    <p th:if="${#lists.size(products) == 0}">По вашему запросу ничего не найдено.</p>
 
-<!-- Отображение списка найденных продуктов -->
-<ul th:if="${#lists.size(products) > 0}">
-    <!-- Цикл по продуктам -->
-    <li th:each="product : ${products}">
-        <strong th:text="${product.name}">Название продукта</strong> <!-- Название продукта -->
-        <p th:text="${product.description}">Описание продукта</p> <!-- Описание продукта -->
-        <p>Цена: <span th:text="${product.price}">Цена продукта</span></p> <!-- Цена продукта -->
+    <!-- Отображение списка найденных продуктов -->
+    <ul class="search-results" th:if="${#lists.size(products) > 0}">
+        <li th:each="product : ${products}" class="product">
+            <div class="product-title" th:text="${product.name}">Название продукта</div>
+            <div class="product-description" th:text="${product.description}">Описание продукта</div>
+            <p>Цена: <span th:text="${product.price}">Цена продукта</span></p>
 
-        <!-- Изображение продукта, если оно есть -->
-        <div th:if="${product.image != null}">
-            <img th:src="${product.image}" th:alt="${product.name}"> <!-- Изображение продукта -->
-        </div>
+            <!-- Изображение продукта, если оно есть -->
+            <div th:if="${product.image != null}">
+                <img th:src="${product.image}" th:alt="${product.name}" class="product-image">
+            </div>
 
-        <!-- Ссылка на детали продукта -->
-        <a th:href="@{'/products/' + ${product.id}}">Подробнее</a> <!-- Ссылка на страницу деталей продукта -->
-    </li>
-</ul>
+            <!-- Ссылка на детали продукта -->
+            <a th:href="@{'/products/' + ${product.id}}" class="more-button">Подробнее</a> <!-- Ссылка на детали продукта -->
+        </li>
+    </ul>
+</div>
 </body>
 </html>

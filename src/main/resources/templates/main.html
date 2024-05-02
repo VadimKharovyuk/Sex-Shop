@@ -76,6 +76,48 @@
             text-decoration: none; /* Без подчеркивания по умолчанию */
             color: inherit; /* Наследуем цвет родителя */
         }
+        /* Стиль формы поиска */
+        .search-form {
+            display: flex; /* Используем flex для размещения элементов */
+            justify-content: center; /* Центрируем по горизонтали */
+            align-items: center; /* Центрируем по вертикали */
+            padding: 10px; /* Внутренние отступы */
+            background-color: #eaeaea; /* Фон для формы */
+            border-radius: 5px; /* Скругленные углы */
+            margin-bottom: 20px; /* Отступ от нижней границы */
+        }
+
+        /* Стиль текстового поля */
+        .search-form input[type="text"] {
+            width: 200px; /* Фиксированная ширина */
+            padding: 8px; /* Внутренние отступы */
+            border: 1px solid #ccc; /* Легкая рамка */
+            border-radius: 5px; /* Скругленные углы */
+            outline: none; /* Убираем обводку */
+            margin-right: 10px; /* Отступ между полем и кнопкой */
+        }
+
+        /* Стиль кнопки */
+        .search-form button {
+            background-color: #007bff; /* Синий цвет */
+            color: white; /* Белый цвет текста */
+            padding: 8px 12px; /* Внутренние отступы */
+            border: none; /* Убираем рамку */
+            border-radius: 5px; /* Скругленные углы */
+            cursor: pointer; /* Указываем, что элемент кликабелен */
+            transition: all 0.3s; /* Плавный переход при наведении */
+        }
+
+        /* Эффект при наведении на кнопку */
+        .search-form button:hover {
+            background-color: #0056b3; /* Более темный синий цвет */
+        }
+
+        /* Стиль для элемента, когда он фокусируется (например, при нажатии) */
+        .search-form input:focus {
+            border-color: #007bff; /* Синяя рамка при фокусе */
+        }
+
     </style>
 </head>
 <body>
@@ -102,10 +144,11 @@
 <!-- Основной контент -->
 <div class="container">
 
-    <form th:action="@{'products/search'}" method="GET"> <!-- Метод GET для отправки данных -->
-        <input type="text" name="query" placeholder="Введите запрос поиска" /> <!-- Поле ввода для запроса -->
-        <button type="submit">Поиск</button> <!-- Кнопка отправки формы -->
+    <form th:action="@{'products/search'}" method="GET" class="search-form"> <!-- Добавление класса -->
+        <input type="text" name="query" placeholder="Что ищете?" /> <!-- Поле ввода -->
+        <button type="submit">Поиск</button> <!-- Кнопка отправки -->
     </form>
+
 
     <!-- Первая секция с описанием -->
     <section>
