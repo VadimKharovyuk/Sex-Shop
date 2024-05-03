@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Создать доставку</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css"> <!-- Подключение стилей -->
+    <style>
+        /* styles.css */
+
+        /* Стилизация для контейнера */
+        .container {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* Стилизация для групп элементов формы */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        /* Стилизация для элементов ввода */
+        input[type="text"], input[type="date"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* Стилизация для кнопок */
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Стилизация для ссылок */
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container"> <!-- Блок-контейнер для стилизации -->
+    <h1>Создать новую доставку</h1> <!-- Заголовок страницы -->
+
+    <!-- Форма создания новой доставки -->
+    <form th:action="@{/deliveries}" th:object="${delivery}" method="post">
+        <!-- Поле для типа доставки -->
+        <div class="form-group">
+            <label for="type">Тип доставки:</label>
+            <select id="type" name="type" th:field="*{type}"> <!-- Выпадающий список с типами доставки -->
+                <option th:each="dt : ${T(com.example.spring_security.entity.DeliveryType).values()}" th:value="${dt}" th:text="${dt.name()}"></option>
+            </select>
+        </div>
+
+        <!-- Поле для даты отправки -->
+        <div class="form-group">
+            <label for="shipmentDate">Дата отправки:</label>
+            <input type="date" id="shipmentDate" name="shipmentDate" th:field="*{shipmentDate}" required>
+        </div>
+
+        <!-- Поле для даты получения -->
+        <div class="form-group">
+            <label for="receiptDate">Дата получения:</label>
+            <input type="date" id="receiptDate" name="receiptDate" th:field="*{receiptDate}">
+        </div>
+
+        <!-- Кнопка для отправки формы -->
+        <div class="form-group">
+            <button type="submit">Создать</button> <!-- Кнопка для отправки -->
+        </div>
+    </form>
+
+    <!-- Ссылка для возврата к списку доставок -->
+    <a href="/deliveries">Назад к списку доставок</a>
+</div>
+</body>
+</html>

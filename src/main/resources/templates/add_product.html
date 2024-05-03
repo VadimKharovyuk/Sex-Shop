@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить продукт</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css">
+</head>
+<body>
+<div class="product-form">
+    <h2>Добавить продукт</h2>
+    <form th:action="@{/products/add}" th:object="${product}" method="post">
+        <div>
+            <label for="name">Название продукта:</label>
+            <input type="text" th:field="*{name}" required>
+        </div>
+        <div>
+            <label for="description">Описание продукта:</label>
+            <textarea th:field="*{description}" required></textarea>
+        </div>
+        <div>
+            <label for="price">Цена продукта:</label>
+            <input type="number" th:field="*{price}" step="0.01" required>
+        </div>
+        <div>
+            <label for="category">Категория:</label>
+            <select name="categoryId" th:field="*{category}">
+                <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
+            </select>
+        </div>
+        <button type="submit">Добавить продукт</button>
+    </form>
+</div>
+</body>
+</html>

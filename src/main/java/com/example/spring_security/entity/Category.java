@@ -24,4 +24,5 @@ public class Category {
     private Set<Product> products; // Список товаров в этой категории
 
 
+
 }

@@ -16,7 +16,7 @@ public class CategoryService {
 
     // Получение всех категорий
     public List<Category> getAllCategories() {
-        return categoryRepository.findAll();
+        return categoryRepository.findAll(); // Проверка, что список не пустой
     }
 
     // Получение категории по ID
@@ -47,4 +47,14 @@ public class CategoryService {
             throw new IllegalArgumentException("Category with ID " + id + " not found");
         }
     }
+
+    public Category findById(Long categoryId) {
+        return categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new RuntimeException("Category not found for id: " + categoryId));
+    }
+
+    public boolean categoryExists(Long categoryId) {
+        return categoryRepository.existsById(categoryId);
+    }
+
 }

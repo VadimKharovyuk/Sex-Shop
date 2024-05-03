@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о доставке</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css"> <!-- Подключение стилей -->
+</head>
+<body>
+<h1>Информация о доставке</h1>
+
+<p><strong>ID:</strong> <span th:text="${delivery.id}"></span></p>
+<p><strong>Тип доставки:</strong> <span th:text="${delivery.type}"></span></p>
+<p><strong>Дата отправки:</strong> <span th:text="${delivery.shipmentDate}"></span></p>
+<p><strong>Дата получения:</strong> <span th:text="${delivery.receiptDate}"></span></p>
+
+<a href="/deliveries">Назад к списку доставок</a> <!-- Ссылка на возврат к списку -->
+</body>
+</html>

@@ -28,6 +28,17 @@ public class Product {
     private Category category;
 
     // Геттеры и сеттеры
+    public Long getCategoryId() {
+        return category != null ? category.getId() : null;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        if (this.category == null) {
+            this.category = new Category();
+        }
+        this.category.setId(categoryId);
+    }
+
     public Long getId() {
         return id;
     }

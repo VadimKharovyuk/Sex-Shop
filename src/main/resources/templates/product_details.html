@@ -1,35 +1,55 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Детали товара</title>-->
+<!--    <link rel="stylesheet" type="text/css" href="/static/styles.css"> &lt;!&ndash; Подключение стилей &ndash;&gt;-->
+<!--</head>-->
+<!--<body>-->
+<!--&lt;!&ndash; Заголовок страницы &ndash;&gt;-->
+<!--<h1>Детали товара</h1>-->
+
+<!--&lt;!&ndash; Проверка, есть ли продукт &ndash;&gt;-->
+<!--<div th:if="${product != null}"> &lt;!&ndash; Проверка, передан ли продукт &ndash;&gt;-->
+
+<!--    &lt;!&ndash; Отображение деталей продукта &ndash;&gt;-->
+<!--    <div>-->
+<!--        <h2 th:text="${product.name}">Название продукта</h2> &lt;!&ndash; Название продукта &ndash;&gt;-->
+<!--        <p th:text="${product.description}">Описание продукта</p> &lt;!&ndash; Описание продукта &ndash;&gt;-->
+<!--        <p>Цена: <span th:text="${product.price}">Цена продукта</span></p> &lt;!&ndash; Цена продукта &ndash;&gt;-->
+
+<!--        &lt;!&ndash; Изображение продукта, если есть &ndash;&gt;-->
+<!--        <div th:if="${product.image != null}">-->
+<!--            <img th:src="${product.image}" th:alt="${product.name}"> &lt;!&ndash; Изображение продукта &ndash;&gt;-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--</div>-->
+
+<!--&lt;!&ndash; Сообщение, если продукта нет &ndash;&gt;-->
+<!--<div th:if="${product == null}">-->
+<!--    <p>Продукт не найден.</p> &lt;!&ndash; Сообщение, если продукт не найден &ndash;&gt;-->
+<!--</div>-->
+
+<!--</body>-->
+<!--</html>-->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Детали товара</title>
-    <link rel="stylesheet" type="text/css" href="/static/styles.css"> <!-- Подключение стилей -->
+    <title>Детали продукта</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css">
 </head>
 <body>
-<!-- Заголовок страницы -->
-<h1>Детали товара</h1>
-
-<!-- Проверка, есть ли продукт -->
-<div th:if="${product != null}"> <!-- Проверка, передан ли продукт -->
-
-    <!-- Отображение деталей продукта -->
-    <div>
-        <h2 th:text="${product.name}">Название продукта</h2> <!-- Название продукта -->
-        <p th:text="${product.description}">Описание продукта</p> <!-- Описание продукта -->
-        <p>Цена: <span th:text="${product.price}">Цена продукта</span></p> <!-- Цена продукта -->
-
-        <!-- Изображение продукта, если есть -->
-        <div th:if="${product.image != null}">
-            <img th:src="${product.image}" th:alt="${product.name}"> <!-- Изображение продукта -->
-        </div>
-    </div>
-
+<div class="product-details">
+    <h2 th:text="${product.name}"></h2>
+    <p><strong>Описание:</strong> <span th:text="${product.description}"></span></p>
+    <p><strong>Цена:</strong> <span th:text="${product.price}"></span></p>
+    <p><strong>Категория:</strong> <span th:text="${product.category.name}"></span></p>
+    <a th:href="@{/products/update/{id}(id=${product.id})}">Редактировать</a>
+    <form th:action="@{/products/delete/{id}(id=${product.id})}" method="post">
+        <button type="submit">Удалить</button>
+    </form>
 </div>
-
-<!-- Сообщение, если продукта нет -->
-<div th:if="${product == null}">
-    <p>Продукт не найден.</p> <!-- Сообщение, если продукт не найден -->
-</div>
-
 </body>
 </html>

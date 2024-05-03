@@ -18,7 +18,13 @@ public class DeliveryController {
     @GetMapping
     public String getAllDeliveries(Model model) {
         model.addAttribute("deliveries", deliveryService.getAllDeliveries());
-        return "deliveries";
+        return "deliveries"; // Имя Thymeleaf-шаблона для списка доставок
+    }
+    // Метод для получения страницы с формой для создания новой доставки
+    @GetMapping("/create")
+    public String getCreateDeliveryForm(Model model) {
+        model.addAttribute("delivery", new Delivery()); // Пустой объект для формы
+        return "create_delivery"; // Имя Thymeleaf-шаблона для формы
     }
 
     // Получение доставки по ID
@@ -32,6 +38,7 @@ public class DeliveryController {
     // Создание новой доставки
     @PostMapping
     public String createDelivery(@ModelAttribute Delivery delivery) {
+        // Сохраняем новую доставку в базу данных
         deliveryService.save(delivery);
         return "redirect:/deliveries"; // Перенаправление на страницу со списком доставок
     }

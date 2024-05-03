@@ -1,24 +1,41 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Все товары</title>-->
+<!--    <link rel="stylesheet" type="text/css" href="/static/styles.css"> &lt;!&ndash; Подключение стилей &ndash;&gt;-->
+<!--</head>-->
+<!--<body>-->
+<!--&lt;!&ndash; Заголовок страницы &ndash;&gt;-->
+<!--<h1>Все товары</h1>-->
+
+<!--&lt;!&ndash; Список всех продуктов &ndash;&gt;-->
+<!--<ul>-->
+<!--    &lt;!&ndash; Цикл для отображения всех продуктов &ndash;&gt;-->
+<!--    <li th:each="product : ${products}"> &lt;!&ndash; Thymeleaf-синтаксис для перебора списка продуктов &ndash;&gt;-->
+<!--        <strong th:text="${product.name}">Название продукта</strong> &lt;!&ndash; Название продукта &ndash;&gt;-->
+<!--        <p th:text="${product.description}">Описание продукта</p> &lt;!&ndash; Описание продукта &ndash;&gt;-->
+<!--        <p>Цена: <span th:text="${product.price}">Цена продукта</span></p> &lt;!&ndash; Цена продукта &ndash;&gt;-->
+<!--        &lt;!&ndash; Ссылка на детали продукта &ndash;&gt;-->
+<!--        <a th:href="@{'/products/' + ${product.id}}">Подробнее</a> &lt;!&ndash; Ссылка на страницу деталей продукта &ndash;&gt;-->
+<!--    </li>-->
+<!--</ul>-->
+<!--</body>-->
+<!--</html>-->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Все товары</title>
-    <link rel="stylesheet" type="text/css" href="/static/styles.css"> <!-- Подключение стилей -->
+    <title>Все продукты</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css">
 </head>
 <body>
-<!-- Заголовок страницы -->
-<h1>Все товары</h1>
-
-<!-- Список всех продуктов -->
+<h2>Все продукты</h2>
 <ul>
-    <!-- Цикл для отображения всех продуктов -->
-    <li th:each="product : ${products}"> <!-- Thymeleaf-синтаксис для перебора списка продуктов -->
-        <strong th:text="${product.name}">Название продукта</strong> <!-- Название продукта -->
-        <p th:text="${product.description}">Описание продукта</p> <!-- Описание продукта -->
-        <p>Цена: <span th:text="${product.price}">Цена продукта</span></p> <!-- Цена продукта -->
-        <!-- Ссылка на детали продукта -->
-        <a th:href="@{'/products/' + ${product.id}}">Подробнее</a> <!-- Ссылка на страницу деталей продукта -->
+    <li th:each="product : ${products}">
+        <a th:href="@{/products/{id}(id=${product.id})}" th:text="${product.name}"></a>
     </li>
 </ul>
+<a href="/products/add">Добавить новый продукт</a>
 </body>
 </html>
