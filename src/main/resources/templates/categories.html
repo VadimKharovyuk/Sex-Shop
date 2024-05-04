@@ -1,84 +1,84 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Категории товаров</title>
-    <link rel="stylesheet" type="text/css" href="/static/styles.css"> <!-- Подключение CSS -->
-    <style>
-        /* Стили для контейнера секций */
-        .section-container {
-            display: flex; /* Используем flexbox */
-            justify-content: space-between; /* Равномерное распределение секций */
-            flex-wrap: wrap; /* Разрешаем перенос секций на новую строку */
-            gap: 20px; /* Промежуток между секциями */
-        }
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Категории товаров</title>-->
+<!--    <link rel="stylesheet" type="text/css" href="/static/styles.css"> &lt;!&ndash; Подключение CSS &ndash;&gt;-->
+<!--    <style>-->
+<!--        /* Стили для контейнера секций */-->
+<!--        .section-container {-->
+<!--            display: flex; /* Используем flexbox */-->
+<!--            justify-content: space-between; /* Равномерное распределение секций */-->
+<!--            flex-wrap: wrap; /* Разрешаем перенос секций на новую строку */-->
+<!--            gap: 20px; /* Промежуток между секциями */-->
+<!--        }-->
 
-        /* Стили для каждой секции */
-        .section {
-            flex: 1; /* Каждая секция занимает равное пространство */
-            background-color: #f5f5f5; /* Светлый фон */
-            padding: 20px; /* Внутренние отступы */
-            border: 1px solid #ddd; /* Легкая рамка */
-            text-align: center; /* Центрирование текста */
-            transition: transform 0.3s; /* Анимация при наведении */
-        }
+<!--        /* Стили для каждой секции */-->
+<!--        .section {-->
+<!--            flex: 1; /* Каждая секция занимает равное пространство */-->
+<!--            background-color: #f5f5f5; /* Светлый фон */-->
+<!--            padding: 20px; /* Внутренние отступы */-->
+<!--            border: 1px solid #ddd; /* Легкая рамка */-->
+<!--            text-align: center; /* Центрирование текста */-->
+<!--            transition: transform 0.3s; /* Анимация при наведении */-->
+<!--        }-->
 
-        .section:hover {
-            transform: scale(1.05); /* Увеличение при наведении */
-        }
+<!--        .section:hover {-->
+<!--            transform: scale(1.05); /* Увеличение при наведении */-->
+<!--        }-->
 
-        .section img {
-            max-width: 100%; /* Ограничиваем размер изображения */
-            border-radius: 10px; /* Скругленные углы */
-        }
+<!--        .section img {-->
+<!--            max-width: 100%; /* Ограничиваем размер изображения */-->
+<!--            border-radius: 10px; /* Скругленные углы */-->
+<!--        }-->
 
-        .section a {
-            text-decoration: none; /* Без подчеркивания */
-            color: #333; /* Темный цвет текста */
-        }
+<!--        .section a {-->
+<!--            text-decoration: none; /* Без подчеркивания */-->
+<!--            color: #333; /* Темный цвет текста */-->
+<!--        }-->
 
-        .section a:hover {
-            color: #007bff; /* Синий цвет при наведении */
-        }
-    </style>
-</head>
-<body>
-<div class="section-container"> <!-- Контейнер для секций -->
-    <!-- Первая секция -->
-    <div class="section">
-        <a href="/categories/1"> <!-- Ссылка на категорию -->
-            <h3>Игрушки для взрослых </h3>
-            <img src="https://isex.com.ua/products_pictures/resized/22211-4.jpg-800-800.jpg" alt="Игрушки для взрослых">
-            <p>Описание первой категории.</p>
-        </a>
-    </div>
+<!--        .section a:hover {-->
+<!--            color: #007bff; /* Синий цвет при наведении */-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="section-container"> &lt;!&ndash; Контейнер для секций &ndash;&gt;-->
+<!--    &lt;!&ndash; Первая секция &ndash;&gt;-->
+<!--    <div class="section">-->
+<!--        <a href="/categories/1"> &lt;!&ndash; Ссылка на категорию &ndash;&gt;-->
+<!--            <h3>Игрушки для взрослых </h3>-->
+<!--            <img src="https://isex.com.ua/products_pictures/resized/22211-4.jpg-800-800.jpg" alt="Игрушки для взрослых">-->
+<!--            <p>Описание первой категории.</p>-->
+<!--        </a>-->
+<!--    </div>-->
 
-    <!-- Вторая секция -->
-    <div class="section">
-        <a href="/categories/2"> <!-- Ссылка на категорию -->
-            <h3>Бельё и одежда</h3>
-            <img src="https://a.allegroimg.com/s1024/116407/4bf25a274cfb94043a909e504748/Obsessive-sex-shop-body-erotyczne-z-dziurka-paski" alt="Бельё и одежда">
-            <p>Описание второй категории.</p>
-        </a>
-    </div>
+<!--    &lt;!&ndash; Вторая секция &ndash;&gt;-->
+<!--    <div class="section">-->
+<!--        <a href="/categories/2"> &lt;!&ndash; Ссылка на категорию &ndash;&gt;-->
+<!--            <h3>Бельё и одежда</h3>-->
+<!--            <img src="https://a.allegroimg.com/s1024/116407/4bf25a274cfb94043a909e504748/Obsessive-sex-shop-body-erotyczne-z-dziurka-paski" alt="Бельё и одежда">-->
+<!--            <p>Описание второй категории.</p>-->
+<!--        </a>-->
+<!--    </div>-->
 
-    <!-- Третья секция -->
-    <div class="section">
-        <a href="/categories/3"> <!-- Ссылка на категорию -->
-            <h3>Средства для ухода и смазки</h3>
-            <img src="https://isex.com.ua/products_pictures/resized/07832-7.jpg-800-800.jpg" alt="Средства для ухода и смазки">
-            <p>Описание третьей категории.</p>
-        </a>
-    </div>
+<!--    &lt;!&ndash; Третья секция &ndash;&gt;-->
+<!--    <div class="section">-->
+<!--        <a href="/categories/3"> &lt;!&ndash; Ссылка на категорию &ndash;&gt;-->
+<!--            <h3>Средства для ухода и смазки</h3>-->
+<!--            <img src="https://isex.com.ua/products_pictures/resized/07832-7.jpg-800-800.jpg" alt="Средства для ухода и смазки">-->
+<!--            <p>Описание третьей категории.</p>-->
+<!--        </a>-->
+<!--    </div>-->
 
-    <!-- Четвертая секция -->
-    <div class="section">
-        <a href="/categories/4"> <!-- Ссылка на категорию -->
-            <h3>Связанные аксессуары</h3>
-            <img src="https://isex.com.ua/products_pictures/resized/20886-1.jpg-468-500.jpg" alt="Связанные аксессуары">
-            <p>Описание четвертой категории.</p>
-        </a>
-    </div>
-</div>
-</body>
-</html>
+<!--    &lt;!&ndash; Четвертая секция &ndash;&gt;-->
+<!--    <div class="section">-->
+<!--        <a href="/categories/4"> &lt;!&ndash; Ссылка на категорию &ndash;&gt;-->
+<!--            <h3>Связанные аксессуары</h3>-->
+<!--            <img src="https://isex.com.ua/products_pictures/resized/20886-1.jpg-468-500.jpg" alt="Связанные аксессуары">-->
+<!--            <p>Описание четвертой категории.</p>-->
+<!--        </a>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->

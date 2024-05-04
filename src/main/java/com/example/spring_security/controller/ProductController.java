@@ -11,9 +11,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/products") // Базовый путь для всех маршрутов контроллера
@@ -21,9 +21,8 @@ import java.util.Optional;
 public class ProductController {
 
     private final ProductService productService;
-    private final CategoryService categoryService ;
-
-
+    private final CategoryService categoryService;
+    private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 
     // Поиск товаров по имени
     @GetMapping("/search")
@@ -38,32 +37,25 @@ public class ProductController {
 
         return "search_results"; // Имя шаблона для отображения результатов поиска
     }
+
+    // Форма для добавления продукта
     @GetMapping("/add")
     public String getAddProductForm(Model model) {
-        List<Category> categories = categoryService.getAllCategories();
         model.addAttribute("product", new Product());
-        model.addAttribute("categories", categories);
+        model.addAttribute("categories", categoryService.getAllCategories());
         return "add_product"; // Имя Thymeleaf-шаблона для добавления продукта
     }
 
+    // Добавление нового продукта
     @PostMapping("/add")
-    public String addProduct(@ModelAttribute Product product, @RequestParam(required = false) Long categoryId) {
-        if (categoryId == null) {
-            // Если categoryId не передан, перенаправляем на страницу с ошибкой или показываем сообщение об ошибке
-            return "redirect:/error?message=Category ID is required";
-        }
-
+    public String addProduct(@ModelAttribute Product product, @RequestParam Long categoryId) {
         try {
-            Category category = categoryService.findById(categoryId);
-            product.setCategory(category); // Устанавливаем категорию
-            productService.addProduct(product, categoryId); // Сохраняем продукт
-            return "redirect:/products"; // Перенаправляем после успешного добавления
+            Product newProduct = productService.addProduct(product, categoryId);
+            return "redirect:/products"; // Перенаправление на список продуктов после успешного добавления
         } catch (EntityNotFoundException ex) {
-            // Если категория с данным ID не найдена, перенаправляем на страницу с ошибкой
-            return "redirect:/error?message=Category not found";
+            return "redirect:/error"; // В случае, если категория не найдена
         } catch (Exception ex) {
-            // Обработка любых других исключений, возможна логгирование или другое действие
-            return "redirect:/error"; // Перенаправление на страницу с ошибкой
+            return "redirect:/error"; // Другие ошибки
         }
     }
 
@@ -77,9 +69,6 @@ public class ProductController {
         return "all_products"; // Имя шаблона для отображения всех товаров
     }
 
-
-
-
     // Получение товара по ID
     @GetMapping("/{id}")
     public String getProductById(@PathVariable Long id, Model model) {
@@ -88,28 +77,32 @@ public class ProductController {
             model.addAttribute("product", product);
             return "product_details"; // Имя шаблона для отображения деталей товара
         } catch (EntityNotFoundException ex) {
-
-            return "redirect:/error"; // Перенаправление на страницу ошибки
+            logger.error("Product not found for ID " + id, ex);
+            return "redirect:/error?message=Product not found"; // Перенаправление на страницу ошибки
         }
     }
 
-    @DeleteMapping("/{id}")
-    public String deleteProduct(@PathVariable Long id) {
-        try {
-            productService.deleteProduct(id);
-            return "redirect:/products"; // После удаления
-        } catch (EntityNotFoundException ex) {
-            return "redirect:/error"; // Если продукт не найден
-        }
-    }
+    // Обновление продукта
     @PutMapping("/{id}")
     public String updateProduct(@PathVariable Long id, @ModelAttribute Product product) {
         try {
             Product updatedProduct = productService.updateProduct(id, product);
             return "redirect:/products/" + id; // Перенаправление на страницу обновленного продукта
         } catch (EntityNotFoundException ex) {
-            return "redirect:/error"; // Если продукт не найден
+            logger.error("Product not found for ID " + id, ex);
+            return "redirect:/error?message=Product not found"; // Если продукт не найден
         }
     }
 
+    // Удаление продукта
+    @DeleteMapping("/{id}")
+    public String deleteProduct(@PathVariable Long id) {
+        try {
+            productService.deleteProduct(id);
+            return "redirect:/products"; // Перенаправление после успешного удаления
+        } catch (EntityNotFoundException ex) {
+            logger.error("Product not found for ID " + id, ex);
+            return "redirect:/error?message=Product not found"; // Если продукт не найден
+        }
+    }
 }

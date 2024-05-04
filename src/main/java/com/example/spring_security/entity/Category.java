@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -21,8 +22,5 @@ public class Category {
     private String name; // Название категории
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Product> products; // Список товаров в этой категории
-
-
-
+    private List<Product> products; // Список товаров в этой категории
 }

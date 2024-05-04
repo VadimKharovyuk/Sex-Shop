@@ -3,32 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title>Добавить продукт</title>
-    <link rel="stylesheet" type="text/css" href="/static/styles.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles.css"> <!-- Подключение стилей -->
 </head>
 <body>
-<div class="product-form">
-    <h2>Добавить продукт</h2>
-    <form th:action="@{/products/add}" th:object="${product}" method="post">
-        <div>
+<div class="container">
+    <h1>Добавить новый продукт</h1> <!-- Заголовок страницы -->
+
+    <!-- Форма добавления нового продукта -->
+    <form th:action="@{/products/add}" th:object="${product}" method="post"> <!-- Путь к POST-запросу -->
+        <!-- Поле для имени продукта -->
+        <div class="form-group">
             <label for="name">Название продукта:</label>
-            <input type="text" th:field="*{name}" required>
+            <input type="text" id="name" name="name" th:field="*{name}" required>
         </div>
-        <div>
+
+        <!-- Поле для описания продукта -->
+        <div class="form-group">
             <label for="description">Описание продукта:</label>
-            <textarea th:field="*{description}" required></textarea>
+            <textarea id="description" name="description" th:field="*{description}" required></textarea>
         </div>
-        <div>
+
+        <!-- Поле для цены продукта -->
+        <div class="form-group">
             <label for="price">Цена продукта:</label>
-            <input type="number" th:field="*{price}" step="0.01" required>
+            <input type="number" id="price" name="price" th:field="*{price}" step="0.01" required>
         </div>
-        <div>
+
+        <!-- Выпадающий список для выбора категории -->
+        <div class="form-group">
             <label for="category">Категория:</label>
-            <select name="categoryId" th:field="*{category}">
+            <select name="categoryId" th:field="*{category}" required>
+                <!-- Используем th:each для перебора всех категорий -->
                 <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
             </select>
         </div>
-        <button type="submit">Добавить продукт</button>
+
+        <!-- Кнопка для отправки формы -->
+        <div class="form-group">
+            <button type="submit">Добавить продукт</button> <!-- Кнопка для отправки -->
+        </div>
     </form>
+
+    <!-- Ссылка для возврата к списку продуктов -->
+    <a href="/products">Назад к списку продуктов</a>
 </div>
 </body>
 </html>

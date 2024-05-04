@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о категории</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css"> <!-- Подключение стилей -->
+</head>
+<body>
+<h1>Информация о категории</h1>
+
+<p><strong>ID:</strong> <span th:text="${category.id}"></span></p> <!-- Отображение ID -->
+<p><strong>Название:</strong> <span th:text="${category.name}"></span></p> <!-- Отображение имени -->
+
+<!-- Ссылка для редактирования категории -->
+<a th:href="@{/categories/edit/{id}(id=${category.id})}">Редактировать</a>
+
+<!-- Ссылка для возврата к списку категорий -->
+<a href="/categories">Назад к списку категорий</a>
+</body>
+</html>
