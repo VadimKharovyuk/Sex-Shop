@@ -48,16 +48,17 @@ public class ProductController {
 
     // Добавление нового продукта
     @PostMapping("/add")
-    public String addProduct(@ModelAttribute Product product, @RequestParam Long categoryId) {
-        try {
-            Product newProduct = productService.addProduct(product, categoryId);
-            return "redirect:/products"; // Перенаправление на список продуктов после успешного добавления
-        } catch (EntityNotFoundException ex) {
-            return "redirect:/error"; // В случае, если категория не найдена
-        } catch (Exception ex) {
-            return "redirect:/error"; // Другие ошибки
-        }
+    public String addProduct(@ModelAttribute Product product) {
+
+
+
+
+            productService.addProduct(product);
+            return "redirect:/products"; // Перенаправление после успешного добавления
+
     }
+
+
 
 
 

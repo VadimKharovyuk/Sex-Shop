@@ -30,14 +30,12 @@
         </div>
 
         <!-- Выпадающий список для выбора категории -->
-        <div class="form-group">
+        <div>
             <label for="category">Категория:</label>
-            <select name="categoryId" th:field="*{category}" required>
-                <!-- Используем th:each для перебора всех категорий -->
+            <select name="categoryId" th:field="*{category.id}" required>
                 <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}"></option>
             </select>
         </div>
-
         <!-- Кнопка для отправки формы -->
         <div class="form-group">
             <button type="submit">Добавить продукт</button> <!-- Кнопка для отправки -->

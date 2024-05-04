@@ -107,14 +107,6 @@ public class ProductService {
     private final CategoryService categoryService;
 
 
-    // Создание продукта
-    public Product addProduct(Product product, Long categoryId) {
-        Category category = categoryService.findById(categoryId);
-
-
-        product.setCategory(category);
-        return productRepository.save(product); // Сохраняем продукт вместе с категорией
-    }
 
     // Получение всех продуктов
     public List<Product> getAllProducts() {
@@ -155,6 +147,10 @@ public class ProductService {
     // Поиск продуктов по категории
     public List<Product> findProductsByCategory(Long categoryId) {
         return productRepository.findByCategory_Id(categoryId);
+    }
+
+    public void addProduct(Product product) {
+        productRepository.save(product);
     }
 }
 
