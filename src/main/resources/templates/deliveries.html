@@ -3,7 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <title>Список доставок</title>
-    <link rel="stylesheet" type="text/css" href="/static/styles.css"> <!-- Подключение стилей -->
+    <link rel="stylesheet" type="text/css" href="/static/styles.css"> <!-- Подключение внешнего файла стилей -->
+    <style>
+        /* Стилизация заголовка */
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-top: 20px;
+        }
+
+        /* Стилизация таблицы */
+        table {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        /* Стилизация ячеек заголовка */
+        th {
+            background-color: #f2f2f2;
+            padding: 10px;
+            text-align: left;
+            border-bottom: 2px solid #ccc;
+        }
+
+        /* Стилизация ячеек таблицы */
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        /* Стилизация ссылок */
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Стилизация ссылок для удаления с подтверждением */
+        a[th:onclick] {
+            color: #e74c3c;
+        }
+
+        /* Стилизация кнопок */
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
 <h1>Список доставок</h1>
