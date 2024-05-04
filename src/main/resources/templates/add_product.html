@@ -4,6 +4,62 @@
     <meta charset="UTF-8">
     <title>Добавить продукт</title>
     <link rel="stylesheet" type="text/css" href="/static/styles.css"> <!-- Подключение стилей -->
+    <style>
+        /* styles.css */
+
+        .container {
+            margin: 20px; /* Отступы вокруг контейнера */
+            padding: 20px; /* Внутренние отступы */
+            border: 1px solid #ccc; /* Рамка вокруг контейнера */
+            border-radius: 10px; /* Скругленные углы */
+            background-color: #f9f9f9; /* Цвет фона */
+        }
+
+        .form-group {
+            margin-bottom: 15px; /* Отступы между элементами */
+        }
+
+        label {
+            display: block; /* Метки в виде блоков */
+            font-weight: bold; /* Жирный шрифт для меток */
+        }
+
+        input[type="text"], input[type="number"], textarea, select {
+            width: 100%; /* Элементы занимают всю ширину */
+            padding: 10px; /* Внутренние отступы */
+            border: 1px solid #ccc; /* Рамка вокруг элементов */
+            border-radius: 5px; /* Скругленные углы */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Тень для элементов */
+            transition: border-color 0.3s; /* Анимация изменения цвета рамки */
+        }
+
+        input[type="text"]:focus, input[type="number"]:focus, textarea:focus, select:focus {
+            border-color: #4CAF50; /* Цвет рамки при фокусе */
+        }
+
+        button {
+            background-color: #4CAF50; /* Зеленый фон */
+            color: white; /* Белый цвет текста */
+            padding: 10px 20px; /* Внутренние отступы */
+            border: none; /* Нет рамки */
+            border-radius: 5px; /* Скругленные углы */
+            cursor: pointer; /* Указатель при наведении */
+        }
+
+        button:hover {
+            background-color: #45a049; /* Более темный зеленый при наведении */
+        }
+
+        a {
+            text-decoration: none; /* Без подчеркивания */
+            color: #4CAF50; /* Цвет ссылки */
+        }
+
+        a:hover {
+            text-decoration: underline; /* Подчеркивание при наведении */
+        }
+
+    </style>
 </head>
 <body>
 <div class="container">

@@ -1,9 +1,168 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="ru">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Список категорий</title>-->
+<!--    <link rel="stylesheet" type="text/css" href="/static/styles.css"> &lt;!&ndash; Подключение стилей &ndash;&gt;-->
+<!--    <style>-->
+<!--        /* styles.css */-->
+
+<!--        /* Стилизация всего документа */-->
+<!--        body {-->
+<!--            font-family: Arial, sans-serif; /* Основной шрифт */-->
+<!--        }-->
+
+<!--        /* Стилизация заголовков */-->
+<!--        h1 {-->
+<!--            text-align: center; /* Выравнивание по центру */-->
+<!--            margin-bottom: 20px; /* Отступ внизу */-->
+<!--        }-->
+
+<!--        /* Стилизация ссылок */-->
+<!--        a {-->
+<!--            color: #007bff; /* Синий цвет для ссылок */-->
+<!--            text-decoration: none; /* Убираем подчеркивание */-->
+<!--        }-->
+
+<!--        a:hover {-->
+<!--            text-decoration: underline; /* Подчеркивание при наведении */-->
+<!--        }-->
+
+<!--        /* Стилизация таблицы */-->
+<!--        table {-->
+<!--            width: 100%; /* Таблица занимает всю ширину */-->
+<!--            border-collapse: collapse; /* Убираем промежутки между ячейками */-->
+<!--        }-->
+
+<!--        thead {-->
+<!--            background-color: #f2f2f2; /* Фон для заголовков таблицы */-->
+<!--        }-->
+
+<!--        th, td {-->
+<!--            padding: 10px; /* Внутренний отступ */-->
+<!--            text-align: left; /* Выравнивание текста влево */-->
+<!--            border: 1px solid #ddd; /* Рамка вокруг ячеек */-->
+<!--        }-->
+
+<!--        /* Стилизация для кнопок */-->
+<!--        button {-->
+<!--            background-color: #007bff; /* Синий фон */-->
+<!--            color: white; /* Белый цвет текста */-->
+<!--            border: none; /* Без рамки */-->
+<!--            padding: 10px 20px; /* Внутренние отступы */-->
+<!--            border-radius: 5px; /* Скругленные углы */-->
+<!--            cursor: pointer; /* Указатель мыши при наведении */-->
+<!--        }-->
+
+<!--        button:hover {-->
+<!--            background-color: #0056b3; /* Более темный синий при наведении */-->
+<!--        }-->
+
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Список категорий</h1>-->
+
+<!--&lt;!&ndash; Ссылка для создания новой категории &ndash;&gt;-->
+<!--<a href="/categories/create">Создать новую категорию</a>-->
+
+<!--&lt;!&ndash; Таблица для отображения всех категорий &ndash;&gt;-->
+<!--<table>-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th>ID</th> &lt;!&ndash; Заголовок столбца &ndash;&gt;-->
+<!--        <th>Название</th> &lt;!&ndash; Заголовок столбца &ndash;&gt;-->
+<!--        <th>Действия</th> &lt;!&ndash; Заголовок столбца &ndash;&gt;-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    &lt;!&ndash; Перебор всех категорий, переданных в модель &ndash;&gt;-->
+<!--    <tr th:each="category : ${categories}">-->
+<!--        <td th:text="${category.id}"></td> &lt;!&ndash; Отображение ID категории &ndash;&gt;-->
+<!--        <td th:text="${category.name}"></td> &lt;!&ndash; Отображение названия категории &ndash;&gt;-->
+<!--        <td>-->
+<!--            &lt;!&ndash; Ссылка для редактирования категории &ndash;&gt;-->
+<!--            <a th:href="@{/categories/edit/{id}(id=${category.id})}">Редактировать</a>-->
+
+<!--            &lt;!&ndash; Ссылка для удаления категории &ndash;&gt;-->
+<!--            <a th:href="@{/categories/delete/{id}(id=${category.id})}" th:onclick="'return confirm(' + 'Вы уверены, что хотите удалить?' + ')'">Удалить</a>-->
+<!--        </td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--</table>-->
+<!--</body>-->
+<!--</html>-->
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Список категорий</title>
     <link rel="stylesheet" type="text/css" href="/static/styles.css"> <!-- Подключение стилей -->
+    <style>
+        /* Общий стиль */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Стилизация заголовка */
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Стилизация ссылок */
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Стилизация контейнера с карточками */
+        .card-container {
+            display: flex; /* Располагаем карточки в строку */
+            flex-wrap: wrap; /* Разрешаем перенос строк */
+            gap: 20px; /* Отступы между карточками */
+            justify-content: center; /* Выравнивание по центру */
+            padding: 20px;
+        }
+
+        /* Стилизация карточек */
+        .card {
+            border: 1px solid #ddd; /* Рамка */
+            border-radius: 10px; /* Скругленные углы */
+            padding: 15px; /* Внутренний отступ */
+            background: #f9f9f9; /* Фон карточки */
+            text-align: center; /* Центрируем текст */
+            width: 200px; /* Ширина карточки */
+        }
+
+        /* Стилизация изображения в карточке */
+        .card img {
+            width: 100%; /* Изображение заполняет всю ширину */
+            border-radius: 10px; /* Скругленные углы */
+            margin-bottom: 10px; /* Отступ внизу */
+        }
+
+        /* Стилизация кнопок */
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
 <h1>Список категорий</h1>
@@ -11,30 +170,22 @@
 <!-- Ссылка для создания новой категории -->
 <a href="/categories/create">Создать новую категорию</a>
 
-<!-- Таблица для отображения всех категорий -->
-<table>
-    <thead>
-    <tr>
-        <th>ID</th> <!-- Заголовок столбца -->
-        <th>Название</th> <!-- Заголовок столбца -->
-        <th>Действия</th> <!-- Заголовок столбца -->
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Перебор всех категорий, переданных в модель -->
-    <tr th:each="category : ${categories}">
-        <td th:text="${category.id}"></td> <!-- Отображение ID категории -->
-        <td th:text="${category.name}"></td> <!-- Отображение названия категории -->
-        <td>
-            <!-- Ссылка для редактирования категории -->
-            <a th:href="@{/categories/edit/{id}(id=${category.id})}">Редактировать</a>
+<!-- Контейнер для карточек -->
+<div class="card-container">
+    <!-- Перебираем все категории -->
+    <div th:each="category : ${categories}" class="card">
+        <!-- Изображение категории -->
+<!--        <img src="" alt="Изображение категории" />-->
 
-            <!-- Ссылка для удаления категории -->
-            <a th:href="@{/categories/delete/{id}(id=${category.id})}" th:onclick="'return confirm(' + 'Вы уверены, что хотите удалить?' + ')'">Удалить</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+        <!-- Название категории -->
+        <h3 th:text="${category.name}"></h3>
+
+        <!-- Ссылки на действия -->
+        <a th:href="@{/categories/edit/{id}(id=${category.id})}">Редактировать</a>
+        <a th:href="@{/categories/delete/{id}(id=${category.id})}" th:onclick="'return confirm(' + 'Вы уверены, что хотите удалить?' + ')'">Удалить</a>
+    </div>
+</div>
 
 </body>
 </html>
+

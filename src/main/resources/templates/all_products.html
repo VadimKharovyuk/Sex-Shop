@@ -1,51 +1,41 @@
-<!--&lt;!&ndash;<!DOCTYPE html>&ndash;&gt;-->
-<!--&lt;!&ndash;<html lang="en">&ndash;&gt;-->
-<!--&lt;!&ndash;<head>&ndash;&gt;-->
-<!--&lt;!&ndash;    <meta charset="UTF-8">&ndash;&gt;-->
-<!--&lt;!&ndash;    <title>Все товары</title>&ndash;&gt;-->
-<!--&lt;!&ndash;    <link rel="stylesheet" type="text/css" href="/static/styles.css"> &lt;!&ndash; Подключение стилей &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;</head>&ndash;&gt;-->
-<!--&lt;!&ndash;<body>&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash; Заголовок страницы &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;<h1>Все товары</h1>&ndash;&gt;-->
-
-<!--&lt;!&ndash;&lt;!&ndash; Список всех продуктов &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;<ul>&ndash;&gt;-->
-<!--&lt;!&ndash;    &lt;!&ndash; Цикл для отображения всех продуктов &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;    <li th:each="product : ${products}"> &lt;!&ndash; Thymeleaf-синтаксис для перебора списка продуктов &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;        <strong th:text="${product.name}">Название продукта</strong> &lt;!&ndash; Название продукта &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;        <p th:text="${product.description}">Описание продукта</p> &lt;!&ndash; Описание продукта &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;        <p>Цена: <span th:text="${product.price}">Цена продукта</span></p> &lt;!&ndash; Цена продукта &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;        &lt;!&ndash; Ссылка на детали продукта &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;        <a th:href="@{'/products/' + ${product.id}}">Подробнее</a> &lt;!&ndash; Ссылка на страницу деталей продукта &ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;    </li>&ndash;&gt;-->
-<!--&lt;!&ndash;</ul>&ndash;&gt;-->
-<!--&lt;!&ndash;</body>&ndash;&gt;-->
-<!--&lt;!&ndash;</html>&ndash;&gt;-->
-<!--<!DOCTYPE html>-->
-<!--<html lang="ru">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Все продукты</title>-->
-<!--    <link rel="stylesheet" type="text/css" href="/static/styles.css">-->
-<!--</head>-->
-<!--<body>-->
-<!--<h2>Все продукты</h2>-->
-<!--<ul>-->
-<!--    <li th:each="product : ${products}">-->
-<!--        <a th:href="@{/products/{id}(id=${product.id})}" th:text="${product.name}"></a>-->
-<!--    </li>-->
-<!--</ul>-->
-<!--<a href="/products/add">Добавить новый продукт</a>-->
-<!--</body>-->
-<!--</html>-->
 
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Список продуктов</title>
-    <link rel="stylesheet" type="text/css" href="/static/styles.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles.css"> <!-- Подключение стилей -->
+    <style>
+        /* styles.css */
+
+        body {
+            font-family: Arial, sans-serif; /* Общий шрифт для страницы */
+        }
+
+        .product-list {
+            display: flex; /* Используем flexbox для организации карточек */
+            flex-wrap: wrap; /* Разрешаем перенос на новую строку */
+            gap: 20px; /* Расстояние между карточками */
+        }
+
+        .product-card {
+            border: 1px solid #ccc; /* Рамка вокруг карточки */
+            border-radius: 10px; /* Скругленные углы */
+            padding: 15px; /* Внутренние отступы */
+            background-color: #f9f9f9; /* Цвет фона */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Легкая тень */
+            flex: 1 1 200px; /* Карточки одинакового размера */
+        }
+
+        .product-card h2 {
+            margin: 0 0 10px; /* Отступы у заголовка */
+        }
+
+        .product-card p {
+            margin: 5px 0; /* Отступы у параграфов */
+        }
+
+    </style>
 </head>
 <body>
 <h1>Список продуктов</h1>
@@ -53,26 +43,17 @@
 <!-- Ссылка для перехода к форме добавления нового продукта -->
 <a href="/products/add">Добавить новый продукт</a>
 
-<!-- Таблица, отображающая все продукты -->
-<table>
-    <thead>
-    <tr>
-        <th>Название</th>
-        <th>Описание</th>
-        <th>Цена</th>
-        <th>Категория</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Перебираем продукты и отображаем их в строках таблицы -->
-    <tr th:each="product : ${products}">
-        <td th:text="${product.name}"></td>
-        <td th:text="${product.description}"></td>
-        <td th:text="${product.price}"></td>
-        <td th:text="${product.category.name}"></td>
-    </tr>
-    </tbody>
-</table>
+<!-- Контейнер для карточек продуктов -->
+<div class="product-list">
+    <!-- Перебираем продукты и создаем карточки -->
+    <div class="product-card" th:each="product : ${products}">
+        <h2 th:text="${product.name}"></h2> <!-- Название продукта -->
+        <p th:text="${product.description}"></p> <!-- Описание продукта -->
+        <p><strong>Цена:</strong> <span th:text="${product.price}"></span></p> <!-- Цена продукта -->
+        <p><strong>Категория:</strong> <span th:text="${product.category.name}"></span></p> <!-- Название категории -->
+    </div>
+</div>
 
 </body>
 </html>
+
