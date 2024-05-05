@@ -1,4 +1,63 @@
 
+<!--<!DOCTYPE html>-->
+<!--<html lang="ru">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Список продуктов</title>-->
+<!--    <link rel="stylesheet" type="text/css" href="/static/styles.css"> &lt;!&ndash; Подключение стилей &ndash;&gt;-->
+<!--    <style>-->
+<!--        /* styles.css */-->
+
+<!--        body {-->
+<!--            font-family: Arial, sans-serif; /* Общий шрифт для страницы */-->
+<!--        }-->
+
+<!--        .product-list {-->
+<!--            display: flex; /* Используем flexbox для организации карточек */-->
+<!--            flex-wrap: wrap; /* Разрешаем перенос на новую строку */-->
+<!--            gap: 20px; /* Расстояние между карточками */-->
+<!--        }-->
+
+<!--        .product-card {-->
+<!--            border: 1px solid #ccc; /* Рамка вокруг карточки */-->
+<!--            border-radius: 10px; /* Скругленные углы */-->
+<!--            padding: 15px; /* Внутренние отступы */-->
+<!--            background-color: #f9f9f9; /* Цвет фона */-->
+<!--            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Легкая тень */-->
+<!--            flex: 1 1 200px; /* Карточки одинакового размера */-->
+<!--        }-->
+
+<!--        .product-card h2 {-->
+<!--            margin: 0 0 10px; /* Отступы у заголовка */-->
+<!--        }-->
+
+<!--        .product-card p {-->
+<!--            margin: 5px 0; /* Отступы у параграфов */-->
+<!--        }-->
+
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Список продуктов</h1>-->
+
+<!--&lt;!&ndash; Ссылка для перехода к форме добавления нового продукта &ndash;&gt;-->
+<!--<a href="/products/add">Добавить новый продукт</a>-->
+
+<!--&lt;!&ndash; Контейнер для карточек продуктов &ndash;&gt;-->
+<!--<div class="product-list">-->
+<!--    &lt;!&ndash; Перебираем продукты и создаем карточки &ndash;&gt;-->
+<!--    <div class="product-card" th:each="product : ${products}">-->
+<!--        <h2 th:text="${product.name}"></h2> &lt;!&ndash; Название продукта &ndash;&gt;-->
+<!--        <p th:text="${product.description}"></p> &lt;!&ndash; Описание продукта &ndash;&gt;-->
+<!--        <p><strong>Цена:</strong> <span th:text="${product.price}"></span></p> &lt;!&ndash; Цена продукта &ndash;&gt;-->
+<!--        <p><strong>Категория:</strong> <span th:text="${product.category.name}"></span></p> &lt;!&ndash; Название категории &ndash;&gt;-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -6,18 +65,20 @@
     <title>Список продуктов</title>
     <link rel="stylesheet" type="text/css" href="/static/styles.css"> <!-- Подключение стилей -->
     <style>
-        /* styles.css */
-
+        /* Общий шрифт для страницы */
         body {
-            font-family: Arial, sans-serif; /* Общий шрифт для страницы */
+            font-family: Arial, sans-serif;
         }
 
+        /* Стили для контейнера с карточками продуктов */
         .product-list {
             display: flex; /* Используем flexbox для организации карточек */
             flex-wrap: wrap; /* Разрешаем перенос на новую строку */
             gap: 20px; /* Расстояние между карточками */
+            justify-content: center; /* Центрируем содержимое */
         }
 
+        /* Стили для карточек продуктов */
         .product-card {
             border: 1px solid #ccc; /* Рамка вокруг карточки */
             border-radius: 10px; /* Скругленные углы */
@@ -25,20 +86,29 @@
             background-color: #f9f9f9; /* Цвет фона */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Легкая тень */
             flex: 1 1 200px; /* Карточки одинакового размера */
+            transition: all 0.3s; /* Плавный переход для анимации */
         }
 
+        /* Эффект при наведении на карточку */
+        .product-card:hover {
+            border-color: #007bff; /* Синий цвет при наведении */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Тень при наведении */
+            transform: translateY(-5px); /* Поднимаем карточку */
+        }
+
+        /* Стили для заголовков в карточках */
         .product-card h2 {
             margin: 0 0 10px; /* Отступы у заголовка */
         }
 
+        /* Стили для текста в карточках */
         .product-card p {
             margin: 5px 0; /* Отступы у параграфов */
         }
-
     </style>
 </head>
 <body>
-<h1>Список продуктов</h1>
+<h1 style="text-align: center">Список продуктов</h1>
 
 <!-- Ссылка для перехода к форме добавления нового продукта -->
 <a href="/products/add">Добавить новый продукт</a>

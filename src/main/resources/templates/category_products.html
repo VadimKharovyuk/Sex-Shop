@@ -3,21 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <title>Товары по категории</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css"> <!-- Подключение стилей -->
+    <style>
+        /* Стили для контейнера с карточками */
+        .card-container {
+            display: flex;
+            flex-wrap: wrap; /* Разрешаем перенос строк */
+            gap: 20px; /* Отступы между карточками */
+            justify-content: center; /* Выравнивание по центру */
+            padding: 20px; /* Отступы вокруг контейнера */
+        }
+
+        /* Стили для карточек товаров */
+        .card {
+            border: 1px solid #ddd; /* Рамка вокруг карточки */
+            border-radius: 10px; /* Скругленные углы */
+            padding: 15px; /* Внутренний отступ */
+            background: #f9f9f9; /* Фон карточки */
+            text-align: center; /* Центрирование текста */
+            width: 200px; /* Ширина каждой карточки */
+            transition: all 0.3s ease; /* Плавный переход для анимации */
+        }
+
+        /* Эффект при наведении на карточку */
+        .card:hover {
+            border-color: #007bff; /* Синяя рамка при наведении */
+            background: #e6f7ff; /* Светлый фон при наведении */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Тень при наведении */
+        }
+
+        /* Стили для изображений в карточках */
+        .card img {
+            width: 100%; /* Изображение заполняет всю ширину */
+            border-radius: 10px; /* Скругленные углы у изображения */
+            margin-bottom: 10px; /* Отступ под изображением */
+        }
+
+        /* Стили для ссылок */
+        a {
+            color: #007bff; /* Синий цвет для ссылок */
+            text-decoration: none; /* Без подчеркивания */
+        }
+
+        a:hover {
+            text-decoration: underline; /* Подчеркивание при наведении */
+        }
+
+    </style>
 </head>
 <body>
-<h1>Товары категории</h1>
+<h1>Товары по категории</h1>
 
-<!-- Вывод всех товаров по категории -->
-<div>
-    <ul>
-        <li th:each="product : ${products}">
-            <strong th:text="${product.name}"></strong> -
-            <span th:text="${product.description}"></span>
-            (Цена: <span th:text="${product.price}"></span>)
-        </li>
-    </ul>
+<!-- Контейнер для карточек товаров -->
+<div class="card-container">
+    <!-- Перебор всех товаров по категории -->
+    <div th:each="product : ${products}" class="card">
+        <!-- Изображение продукта -->
+<!--        <img th:src="${product.image}" alt="Изображение продукта" />-->
+
+        <!-- Название продукта -->
+        <h3 th:text="${product.name}"></h3>
+
+        <!-- Описание продукта -->
+        <p th:text="${product.description}"></p>
+
+        <!-- Цена продукта -->
+        <p>Цена: <span th:text="${product.price}"></span></p>
+    </div>
 </div>
 
+<!-- Ссылка для возврата к списку всех товаров -->
 <a href="/products">Назад ко всем товарам</a>
 
 </body>

@@ -1,44 +1,76 @@
+
 <!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
+<!--<html lang="ru">-->
 <!--<head>-->
 <!--    <meta charset="UTF-8">-->
-<!--    <title>Детали товара</title>-->
-<!--    <link rel="stylesheet" type="text/css" href="/static/styles.css"> &lt;!&ndash; Подключение стилей &ndash;&gt;-->
+<!--    <title>Детали продукта</title>-->
+<!--    <link rel="stylesheet" type="text/css" href="/static/styles.css">-->
 <!--</head>-->
 <!--<body>-->
-<!--&lt;!&ndash; Заголовок страницы &ndash;&gt;-->
-<!--<h1>Детали товара</h1>-->
-
-<!--&lt;!&ndash; Проверка, есть ли продукт &ndash;&gt;-->
-<!--<div th:if="${product != null}"> &lt;!&ndash; Проверка, передан ли продукт &ndash;&gt;-->
-
-<!--    &lt;!&ndash; Отображение деталей продукта &ndash;&gt;-->
-<!--    <div>-->
-<!--        <h2 th:text="${product.name}">Название продукта</h2> &lt;!&ndash; Название продукта &ndash;&gt;-->
-<!--        <p th:text="${product.description}">Описание продукта</p> &lt;!&ndash; Описание продукта &ndash;&gt;-->
-<!--        <p>Цена: <span th:text="${product.price}">Цена продукта</span></p> &lt;!&ndash; Цена продукта &ndash;&gt;-->
-
-<!--        &lt;!&ndash; Изображение продукта, если есть &ndash;&gt;-->
-<!--        <div th:if="${product.image != null}">-->
-<!--            <img th:src="${product.image}" th:alt="${product.name}"> &lt;!&ndash; Изображение продукта &ndash;&gt;-->
-<!--        </div>-->
-<!--    </div>-->
-
+<!--<div class="product-details">-->
+<!--    <h2 th:text="${product.name}"></h2>-->
+<!--    <p><strong>Описание:</strong> <span th:text="${product.description}"></span></p>-->
+<!--    <p><strong>Цена:</strong> <span th:text="${product.price}"></span></p>-->
+<!--    <p><strong>Категория:</strong> <span th:text="${product.category.name}"></span></p>-->
+<!--    <a th:href="@{/products/update/{id}(id=${product.id})}">Редактировать</a>-->
+<!--    <form th:action="@{/products/delete/{id}(id=${product.id})}" method="post">-->
+<!--        <button type="submit">Удалить</button>-->
+<!--    </form>-->
 <!--</div>-->
-
-<!--&lt;!&ndash; Сообщение, если продукта нет &ndash;&gt;-->
-<!--<div th:if="${product == null}">-->
-<!--    <p>Продукт не найден.</p> &lt;!&ndash; Сообщение, если продукт не найден &ndash;&gt;-->
-<!--</div>-->
-
 <!--</body>-->
 <!--</html>-->
+
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Детали продукта</title>
     <link rel="stylesheet" type="text/css" href="/static/styles.css">
+    <style>
+        /* Стили для контейнера с деталями продукта */
+        .product-details {
+            border: 1px solid #ccc; /* Рамка вокруг карточки */
+            border-radius: 10px; /* Скругленные углы */
+            padding: 15px; /* Внутренний отступ */
+            background-color: #f9f9f9; /* Цвет фона */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Легкая тень */
+            transition: all 0.3s; /* Плавный переход для анимации */
+            text-align: left; /* Выравнивание текста */
+        }
+
+        /* Эффект при наведении на карточку */
+        .product-details:hover {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Тень при наведении */
+            transform: translateY(-5px); /* Поднимаем карточку при наведении */
+            border-color: #007bff; /* Цвет рамки при наведении */
+        }
+
+        /* Стили для заголовков */
+        .product-details h2 {
+            margin: 0 0 10px; /* Отступы у заголовка */
+        }
+
+        /* Стили для параграфов */
+        .product-details p {
+            margin: 5px 0; /* Отступы у параграфов */
+        }
+
+        /* Стили для кнопок */
+        button {
+            background-color: #007bff; /* Синий фон */
+            color: white; /* Белый текст */
+            border: none; /* Без рамки */
+            padding: 10px; /* Внутренний отступ */
+            border-radius: 5px; /* Скругленные углы */
+            cursor: pointer; /* Указатель мыши */
+            transition: background-color 0.3s; /* Плавный переход */
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Более темный синий при наведении */
+        }
+    </style>
 </head>
 <body>
 <div class="product-details">
@@ -51,5 +83,7 @@
         <button type="submit">Удалить</button>
     </form>
 </div>
+<a href="/products">Назад ко всем товарам</a>
 </body>
 </html>
+
