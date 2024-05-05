@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Товары по категории</title>
+</head>
+<body>
+<h1>Товары категории</h1>
+
+<!-- Вывод всех товаров по категории -->
+<div>
+    <ul>
+        <li th:each="product : ${products}">
+            <strong th:text="${product.name}"></strong> -
+            <span th:text="${product.description}"></span>
+            (Цена: <span th:text="${product.price}"></span>)
+        </li>
+    </ul>
+</div>
+
+<a href="/products">Назад ко всем товарам</a>
+
+</body>
+</html>

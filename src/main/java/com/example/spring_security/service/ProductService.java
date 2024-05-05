@@ -106,6 +106,10 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final CategoryService categoryService;
 
+    public List<Product> findProductsByCategory(Long categoryId) {
+        return productRepository.findByCategory_Id(categoryId); // Используем метод репозитория
+    }
+
 
 
     // Получение всех продуктов
@@ -144,10 +148,6 @@ public class ProductService {
         return productRepository.findByNameContainingIgnoreCase(name); // case-insensitive search
     }
 
-    // Поиск продуктов по категории
-    public List<Product> findProductsByCategory(Long categoryId) {
-        return productRepository.findByCategory_Id(categoryId);
-    }
 
     public void addProduct(Product product) {
         productRepository.save(product);

@@ -106,4 +106,13 @@ public class ProductController {
             return "redirect:/error?message=Product not found"; // Если продукт не найден
         }
     }
+
+
+
+    @GetMapping("/by-category/{categoryId}")
+    public String getProductsByCategory(@PathVariable Long categoryId, Model model) {
+        List<Product> products = productService.findProductsByCategory(categoryId); // Получаем продукты по `category_id`
+        model.addAttribute("products", products); // Добавляем продукты в модель
+        return "category_products"; // Имя шаблона для отображения продуктов
+    }
 }
