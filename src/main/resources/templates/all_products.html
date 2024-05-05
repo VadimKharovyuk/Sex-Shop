@@ -121,6 +121,7 @@
         <p th:text="${product.description}"></p> <!-- Описание продукта -->
         <p><strong>Цена:</strong> <span th:text="${product.price}"></span></p> <!-- Цена продукта -->
         <p><strong>Категория:</strong> <span th:text="${product.category.name}"></span></p> <!-- Название категории -->
+        <a th:href="@{'/products/' + ${product.id}}" class="more-button">Подробнее</a> <!-- Ссылка на детали продукта -->
     </div>
 </div>
 
