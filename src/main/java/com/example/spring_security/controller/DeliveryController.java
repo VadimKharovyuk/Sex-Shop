@@ -20,6 +20,7 @@ public class DeliveryController {
         model.addAttribute("deliveries", deliveryService.getAllDeliveries());
         return "deliveries"; // Имя Thymeleaf-шаблона для списка доставок
     }
+
     // Метод для получения страницы с формой для создания новой доставки
     @GetMapping("/create")
     public String getCreateDeliveryForm(Model model) {
