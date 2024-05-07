@@ -1,10 +1,76 @@
 
+<!--&lt;!&ndash;<!DOCTYPE html>&ndash;&gt;-->
+<!--&lt;!&ndash;<html lang="ru">&ndash;&gt;-->
+<!--&lt;!&ndash;<head>&ndash;&gt;-->
+<!--&lt;!&ndash;    <meta charset="UTF-8">&ndash;&gt;-->
+<!--&lt;!&ndash;    <title>Детали продукта</title>&ndash;&gt;-->
+<!--&lt;!&ndash;    <link rel="stylesheet" type="text/css" href="/static/styles.css">&ndash;&gt;-->
+<!--&lt;!&ndash;</head>&ndash;&gt;-->
+<!--&lt;!&ndash;<body>&ndash;&gt;-->
+<!--&lt;!&ndash;<div class="product-details">&ndash;&gt;-->
+<!--&lt;!&ndash;    <h2 th:text="${product.name}"></h2>&ndash;&gt;-->
+<!--&lt;!&ndash;    <p><strong>Описание:</strong> <span th:text="${product.description}"></span></p>&ndash;&gt;-->
+<!--&lt;!&ndash;    <p><strong>Цена:</strong> <span th:text="${product.price}"></span></p>&ndash;&gt;-->
+<!--&lt;!&ndash;    <p><strong>Категория:</strong> <span th:text="${product.category.name}"></span></p>&ndash;&gt;-->
+<!--&lt;!&ndash;    <a th:href="@{/products/update/{id}(id=${product.id})}">Редактировать</a>&ndash;&gt;-->
+<!--&lt;!&ndash;    <form th:action="@{/products/delete/{id}(id=${product.id})}" method="post">&ndash;&gt;-->
+<!--&lt;!&ndash;        <button type="submit">Удалить</button>&ndash;&gt;-->
+<!--&lt;!&ndash;    </form>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--&lt;!&ndash;</body>&ndash;&gt;-->
+<!--&lt;!&ndash;</html>&ndash;&gt;-->
+
+
 <!--<!DOCTYPE html>-->
 <!--<html lang="ru">-->
 <!--<head>-->
 <!--    <meta charset="UTF-8">-->
 <!--    <title>Детали продукта</title>-->
 <!--    <link rel="stylesheet" type="text/css" href="/static/styles.css">-->
+<!--    <style>-->
+<!--        /* Стили для контейнера с деталями продукта */-->
+<!--        .product-details {-->
+<!--            border: 1px solid #ccc; /* Рамка вокруг карточки */-->
+<!--            border-radius: 10px; /* Скругленные углы */-->
+<!--            padding: 15px; /* Внутренний отступ */-->
+<!--            background-color: #f9f9f9; /* Цвет фона */-->
+<!--            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Легкая тень */-->
+<!--            transition: all 0.3s; /* Плавный переход для анимации */-->
+<!--            text-align: left; /* Выравнивание текста */-->
+<!--        }-->
+
+<!--        /* Эффект при наведении на карточку */-->
+<!--        .product-details:hover {-->
+<!--            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Тень при наведении */-->
+<!--            transform: translateY(-5px); /* Поднимаем карточку при наведении */-->
+<!--            border-color: #007bff; /* Цвет рамки при наведении */-->
+<!--        }-->
+
+<!--        /* Стили для заголовков */-->
+<!--        .product-details h2 {-->
+<!--            margin: 0 0 10px; /* Отступы у заголовка */-->
+<!--        }-->
+
+<!--        /* Стили для параграфов */-->
+<!--        .product-details p {-->
+<!--            margin: 5px 0; /* Отступы у параграфов */-->
+<!--        }-->
+
+<!--        /* Стили для кнопок */-->
+<!--        button {-->
+<!--            background-color: #007bff; /* Синий фон */-->
+<!--            color: white; /* Белый текст */-->
+<!--            border: none; /* Без рамки */-->
+<!--            padding: 10px; /* Внутренний отступ */-->
+<!--            border-radius: 5px; /* Скругленные углы */-->
+<!--            cursor: pointer; /* Указатель мыши */-->
+<!--            transition: background-color 0.3s; /* Плавный переход */-->
+<!--        }-->
+
+<!--        button:hover {-->
+<!--            background-color: #0056b3; /* Более темный синий при наведении */-->
+<!--        }-->
+<!--    </style>-->
 <!--</head>-->
 <!--<body>-->
 <!--<div class="product-details">-->
@@ -16,17 +82,25 @@
 <!--    <form th:action="@{/products/delete/{id}(id=${product.id})}" method="post">-->
 <!--        <button type="submit">Удалить</button>-->
 <!--    </form>-->
+<!--    <form th:action="@{/cart/add}" method="post">-->
+<!--        -->
+<!--        &lt;!&ndash; Поле для количества &ndash;&gt;-->
+<!--        <input type="number" name="quantity" min="1" value="1" required>-->
+<!--        &lt;!&ndash; Скрытое поле для идентификатора товара &ndash;&gt;-->
+<!--        <input type="hidden" name="productId" th:value="${product.id}">-->
+<!--        &lt;!&ndash; Кнопка для добавления в корзину &ndash;&gt;-->
+<!--        <button type="submit">Добавить в корзину</button>-->
+<!--    </form>-->
 <!--</div>-->
+<!--<a href="/products">Назад ко всем товарам</a>-->
 <!--</body>-->
 <!--</html>-->
-
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Детали продукта</title>
-    <link rel="stylesheet" type="text/css" href="/static/styles.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles.css"> <!-- Подключение стилей -->
     <style>
         /* Стили для контейнера с деталями продукта */
         .product-details {
@@ -35,7 +109,7 @@
             padding: 15px; /* Внутренний отступ */
             background-color: #f9f9f9; /* Цвет фона */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Легкая тень */
-            transition: all 0.3s; /* Плавный переход для анимации */
+            transition: all 0.3s; /* Плавный переход */
             text-align: left; /* Выравнивание текста */
         }
 
@@ -43,7 +117,7 @@
         .product-details:hover {
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Тень при наведении */
             transform: translateY(-5px); /* Поднимаем карточку при наведении */
-            border-color: #007bff; /* Цвет рамки при наведении */
+            border-color: #007bff; /* Синий цвет при наведении */
         }
 
         /* Стили для заголовков */
@@ -78,20 +152,26 @@
     <p><strong>Описание:</strong> <span th:text="${product.description}"></span></p>
     <p><strong>Цена:</strong> <span th:text="${product.price}"></span></p>
     <p><strong>Категория:</strong> <span th:text="${product.category.name}"></span></p>
+
+    <!-- Форма для добавления товара в корзину -->
+    <form th:action="@{/cart/add}" method="post">
+        <input type="hidden" name="productId" th:value="${product.id}"/> <!-- Идентификатор продукта -->
+        <label for="quantity">Количество:</label>
+        <input type="number" name="quantity" id="quantity" min="1" value="1"/> <!-- Количество -->
+        <button type="submit">Добавить в корзину</button> <!-- Кнопка добавления в корзину -->
+    </form>
+
+    <!-- Ссылки для редактирования и удаления продукта -->
     <a th:href="@{/products/update/{id}(id=${product.id})}">Редактировать</a>
     <form th:action="@{/products/delete/{id}(id=${product.id})}" method="post">
         <button type="submit">Удалить</button>
     </form>
-    <form th:action="@{/orders/add}" method="post">
-        <!-- Поле для количества -->
-        <input type="number" name="quantity" min="1" value="1" required>
-        <!-- Скрытое поле для идентификатора товара -->
-        <input type="hidden" name="productId" th:value="${product.id}">
-        <!-- Кнопка для добавления в корзину -->
-        <button type="submit">Добавить в корзину</button>
-    </form>
 </div>
+
+<!-- Ссылка для возврата к списку продуктов -->
 <a href="/products">Назад ко всем товарам</a>
+
 </body>
 </html>
+
 

@@ -17,7 +17,7 @@ public class ShoppingCartItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // Уникальный идентификатор
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL) // Используем каскадное удаление
     @JoinColumn(name = "product_id", nullable = false)
     private Product product; // Ссылка на продукт
 

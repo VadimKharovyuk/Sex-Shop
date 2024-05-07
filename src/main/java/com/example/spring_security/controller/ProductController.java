@@ -49,10 +49,6 @@ public class ProductController {
     // Добавление нового продукта
     @PostMapping("/add")
     public String addProduct(@ModelAttribute Product product) {
-
-
-
-
             productService.addProduct(product);
             return "redirect:/products"; // Перенаправление после успешного добавления
 
@@ -95,8 +91,8 @@ public class ProductController {
         }
     }
 
-    // Удаление продукта
-    @DeleteMapping("/{id}")
+
+    @PostMapping("/delete/{id}")
     public String deleteProduct(@PathVariable Long id) {
         try {
             productService.deleteProduct(id);

@@ -4,6 +4,7 @@ import com.example.spring_security.entity.Product;
 import com.example.spring_security.entity.ShoppingCart;
 import com.example.spring_security.service.ProductService;
 import com.example.spring_security.service.ShoppingCartService;
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,27 +18,35 @@ public class ShoppingCartController {
     private final ProductService productService;
 
     @GetMapping
-    public String viewCart(Model model) {
-        ShoppingCart cart = getOrCreateCart(); // Получаем или создаем новую корзину
+    public String viewCart(Model model, HttpSession session) {
+        ShoppingCart cart = getOrCreateCart(session); // Получаем корзину из сессии или создаем новую
         model.addAttribute("cart", cart);
-        return "shopping_cart";
+        model.addAttribute("totalPrice", shoppingCartService.getTotalPrice(cart)); // Общая стоимость корзины
+        return "shopping_cart"; // Имя шаблона для отображения корзины
     }
 
     @PostMapping("/add")
-    public String addToCart(@RequestParam Long productId, @RequestParam int quantity) {
-        ShoppingCart cart = getOrCreateCart(); // Получаем или создаем новую корзину
+    public String addToCart(@RequestParam Long productId, @RequestParam int quantity, HttpSession session) {
+        ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
+
+        if (cart == null) {
+            cart = shoppingCartService.createCart(); // Если корзина не была создана
+            session.setAttribute("cart", cart); // Сохраняем в сессии
+        }
+
         Product product = productService.getProductById(productId);
 
         if (product != null) {
-            shoppingCartService.addItemToCart(cart, product, quantity);
+            shoppingCartService.addItemToCart(cart, product, quantity); // Добавляем товар в корзину
         }
 
-        return "redirect:/cart";
+        return "redirect:/cart"; // Перенаправляем на страницу корзины
     }
 
+
     @PostMapping("/remove")
-    public String removeFromCart(@RequestParam Long productId) {
-        ShoppingCart cart = getOrCreateCart();
+    public String removeFromCart(@RequestParam Long productId, HttpSession session) {
+        ShoppingCart cart = getOrCreateCart(session);
         Product product = productService.getProductById(productId);
 
         if (product != null) {
@@ -47,18 +56,33 @@ public class ShoppingCartController {
         return "redirect:/cart";
     }
 
+    @PostMapping("/update")
+    public String updateCartItem(@RequestParam Long productId, @RequestParam int quantity, HttpSession session) {
+        ShoppingCart cart = getOrCreateCart(session);
+        Product product = productService.getProductById(productId);
+
+        if (product != null) {
+            shoppingCartService.updateItemQuantity(cart, product, quantity);
+        }
+
+        return "redirect:/cart";
+    }
+
     @PostMapping("/clear")
-    public String clearCart() {
-        ShoppingCart cart = getOrCreateCart();
+    public String clearCart(HttpSession session) {
+        ShoppingCart cart = getOrCreateCart(session);
         shoppingCartService.clearCart(cart);
         return "redirect:/cart";
     }
 
-    private ShoppingCart getOrCreateCart() {
-        // Метод для получения или создания новой корзины
-        // В этом примере мы создаем новую корзину
-        // Если ваша система позволяет сохранять корзину для пользователя,
-        // вы можете извлечь корзину по идентификатору пользователя или по сессии
-        return shoppingCartService.createCart();
+    private ShoppingCart getOrCreateCart(HttpSession session) {
+        ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
+
+        if (cart == null) {
+            cart = shoppingCartService.createCart();
+            session.setAttribute("cart", cart);
+        }
+
+        return cart;
     }
 }

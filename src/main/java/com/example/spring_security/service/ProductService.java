@@ -91,8 +91,11 @@ package com.example.spring_security.service;
 import com.example.spring_security.entity.Category;
 import com.example.spring_security.entity.Product;
 import com.example.spring_security.repositoty.ProductRepository;
+import com.example.spring_security.repositoty.ShoppingCartItemRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import jakarta.persistence.EntityNotFoundException;
 
@@ -105,6 +108,22 @@ public class ProductService {
 
     private final ProductRepository productRepository;
     private final CategoryService categoryService;
+
+    private  final  ShoppingCartItemRepository shoppingCartItemRepository;
+
+    public void deleteProduct(Long productId) {
+        try {
+            deleteProduct(productId); // Удаляем продукт
+        } catch (DataIntegrityViolationException ex) {
+            // Обработка исключения при нарушении целостности данных
+            throw new IllegalStateException("Product cannot be deleted because it has associated cart items.", ex);
+        }
+
+        // Удаление всех элементов корзины, связанных с продуктом
+        shoppingCartItemRepository.deleteByProductId(productId);
+        productRepository.deleteById(productId); // Удаление самого продукта
+    }
+
 
     public List<Product> findProductsByCategory(Long categoryId) {
         return productRepository.findByCategory_Id(categoryId); // Используем метод репозитория
@@ -134,14 +153,14 @@ public class ProductService {
         return productRepository.save(existingProduct);
     }
 
-    // Удаление продукта
-    public void deleteProduct(Long id) {
-        if (productRepository.existsById(id)) {
-            productRepository.deleteById(id);
-        } else {
-            throw new EntityNotFoundException("Product with ID " + id + " not found");
-        }
-    }
+//    // Удаление продукта
+//    public void deleteProduct(Long id) {
+//        if (productRepository.existsById(id)) {
+//            productRepository.deleteById(id);
+//        } else {
+//            throw new EntityNotFoundException("Product with ID " + id + " not found");
+//        }
+//    }
 
     // Поиск продуктов по имени
     public List<Product> findProductsByName(String name) {

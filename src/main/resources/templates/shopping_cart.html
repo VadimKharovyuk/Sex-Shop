@@ -1,95 +1,107 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Shopping Cart</title>
-  <link rel="stylesheet" type="text/css" href="/static/styles.css">
+  <title>Корзина покупок</title>
+  <link rel="stylesheet" type="text/css" href="/static/styles.css"> <!-- Подключение стилей -->
   <style>
-    /* Basic styles for the shopping cart */
-    .cart-container {
-      margin: 20px;
-      padding: 20px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      background-color: #f9f9f9;
+    /* Стили для основного текста и шрифтов */
+    body {
+      font-family: Arial, sans-serif; /* Общий шрифт для страницы */
+      background-color: #f0f0f0; /* Светлый фон для страницы */
+      padding: 20px; /* Отступы вокруг содержимого */
     }
 
-    .cart-title {
-      text-align: center;
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 20px;
+    /* Заголовки на странице */
+    h1 {
+      text-align: center; /* Центрируем заголовок */
+      color: #333; /* Темный цвет текста */
     }
 
-    .cart-items {
-      list-style: none;
-      padding: 0;
+    /* Стили для списка товаров в корзине */
+    ul {
+      list-style: none; /* Убираем маркеры списка */
+      padding: 0; /* Убираем отступы */
     }
 
-    .cart-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px;
-      border-bottom: 1px solid #ddd;
+    li {
+      padding: 10px; /* Отступы внутри элементов списка */
+      border-bottom: 1px solid #ccc; /* Разделители между элементами */
+      display: flex; /* Используем flex для выравнивания */
+      justify-content: space-between; /* Разделяем контент */
     }
 
-    .cart-item:last-child {
-      border-bottom: none;
+    /* Стили для форм и кнопок */
+    form {
+      display: inline-block; /* Отображаем формы в одну линию */
     }
 
-    .item-actions {
-      display: flex;
-      gap: 10px;
+    input {
+      padding: 5px; /* Отступы для полей ввода */
+      border: 1px solid #ccc; /* Рамка вокруг полей ввода */
+      border-radius: 5px; /* Скругленные углы */
+      margin-right: 10px; /* Отступы между полями и кнопками */
     }
 
-    .item-quantity {
-      font-size: 16px;
-      font-weight: bold;
+    button {
+      background-color: #007bff; /* Синий цвет фона */
+      color: white; /* Белый текст */
+      border: none; /* Без рамки */
+      padding: 7px 10px; /* Отступы внутри кнопки */
+      border-radius: 5px; /* Скругленные углы */
+      cursor: pointer; /* Указатель мыши */
+      transition: all 0.3s; /* Плавный переход для анимации */
     }
 
-    .clear-cart {
-      text-align: center;
-      margin-top: 20px;
+    button:hover {
+      background-color: #0056b3; /* Темно-синий при наведении */
+    }
+
+    /* Стили для ссылок */
+    a {
+      color: #007bff; /* Синий цвет для ссылок */
+      text-decoration: none; /* Без подчеркивания */
+    }
+
+    a:hover {
+      text-decoration: underline; /* Подчеркивание при наведении */
     }
   </style>
 </head>
 <body>
-<div class="cart-container">
-  <div class="cart-title">Your Shopping Cart</div>
+<h1>Корзина покупок</h1>
 
-  <ul class="cart-items">
-    <li th:each="item : ${cart.items}" class="cart-item">
-      <!-- Product Name -->
-      <span th:text="${item.product.name}">Product Name</span>
+<!-- Список товаров в корзине -->
+<ul>
+  <li th:each="item : ${cart.items}">
+    <span th:text="${item.product.name}"></span> <!-- Название продукта -->
+    <span th:text="${item.quantity}"></span> шт. <!-- Количество -->
+    (<span th:text="${item.product.price}"></span> UAH. за шт.) <!-- Цена за шт. -->
 
-      <!-- Product Quantity -->
-      <span class="item-quantity" th:text="${item.quantity}">1</span>
-
-      <div class="item-actions">
-        <!-- Remove Item Button -->
-        <form th:action="@{/cart/remove}" method="post">
-          <input type="hidden" name="productId" th:value="${item.product.id}">
-          <button type="submit">Remove</button>
-        </form>
-      </div>
-    </li>
-  </ul>
-
-  <!-- Total Price -->
-  <p>Total: <span th:text="${#lists.sum(cart.items, 'product.price * quantity')}"></span></p>
-
-  <!-- Clear Cart Button -->
-  <div class="clear-cart">
-    <form th:action="@{/cart/clear}" method="post">
-      <button type="submit">Clear Cart</button>
+    <!-- Удалить товар из корзины -->
+    <form th:action="@{/cart/remove(productId=${item.product.id})}" method="post">
+      <button type="submit">Удалить</button>
     </form>
-  </div>
-</div>
 
-<!-- Back to Products -->
-<div style="text-align: center; margin-top: 20px;">
-  <a href="/products">Continue Shopping</a>
-</div>
+    <!-- Обновить количество товара -->
+    <form th:action="@{/cart/update}" method="post">
+      <input type="hidden" name="productId" th:value="${item.product.id}"/> <!-- Скрытый идентификатор продукта -->
+      <input type="number" name="quantity" th:value="${item.quantity}"/> <!-- Поле для обновления количества -->
+      <button type="submit">Обновить</button>
+    </form>
+  </li>
+</ul>
+
+<!-- Отображение итоговой суммы корзины -->
+<p><strong>Итоговая сумма:</strong> <span th:text="${totalPrice}"></span> UAH.</p>
+
+<!-- Очистка всей корзины -->
+<form th:action="@{/cart/clear}" method="post">
+  <button type="submit">Очистить корзину</button>
+</form>
+
+<!-- Ссылка для возврата к списку продуктов -->
+<a href="/products">Вернуться к списку продуктов</a>
+
 </body>
 </html>

@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "product")
 @AllArgsConstructor
@@ -26,6 +28,12 @@ public class Product {
     @ManyToOne(fetch = FetchType.LAZY) // Обеспечиваем ленивую загрузку
     @JoinColumn(name = "category_id") // Связь с категорией
     private Category category; // Связь с категорией
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<ShoppingCartItem> cartItems; // Список связанных элементов корзины
+
+
+
 }
 
 
