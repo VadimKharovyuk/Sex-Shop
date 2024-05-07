@@ -105,6 +105,10 @@
         .product-card p {
             margin: 5px 0; /* Отступы у параграфов */
         }
+        .pic{
+            height: 200px;
+            width: 200px;
+        }
     </style>
 </head>
 <body>
@@ -119,6 +123,7 @@
     <!-- Перебираем продукты и создаем карточки -->
     <div class="product-card" th:each="product : ${products}">
         <h2 th:text="${product.name}"></h2> <!-- Название продукта -->
+        <img th:src="@{/pic/category3.jpg}" class="pic" alt="Изображение категории" />
         <p th:text="${product.description}"></p> <!-- Описание продукта -->
         <p><strong>Цена:</strong> <span th:text="${product.price}"></span></p> <!-- Цена продукта -->
         <p><strong>Категория:</strong> <span th:text="${product.category.name}"></span></p> <!-- Название категории -->

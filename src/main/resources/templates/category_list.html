@@ -81,18 +81,17 @@
     <div th:each="category : ${categories}" class="card">
         <!-- Изображение категории -->
         <!-- Используем th:src с @{} для указания пути к статическому изображению -->
-<!--        <img th:src="@{/static/pic/category1.jpg}" alt="Изображение категории" />-->
+        <img th:src="@{/pic/category4.jpg}" alt="Изображение категории" />
 
-
+<!--<img src="https://isex.com.ua/products_pictures/resized/11233-1.jpg-800-557.71428571429.jpg">-->
         <!-- Название категории -->
         <h3 th:text="${category.name}"></h3>
 
-        <!-- Ссылка на продукты этой категории -->
-<!--        <a th:href="@{/products/by-category/=${category.id}}">Посмотреть продукты</a>-->
+
         <a th:href="@{/products/by-category/{categoryId}(categoryId=${category.id})}">Посмотреть продукты</a>
+<!--        <a th:href="@{'/products/' + ${product.id}}" class="more-button">Подробнее</a> &lt;!&ndash; Ссылка на детали продукта &ndash;&gt;-->
 
 
-        <!-- Ссылки на редактирование и удаление -->
         <div>
             <a th:href="@{/categories/edit/{id}(id=${category.id})}">Редактировать</a>
             <a th:href="@{/categories/delete/{id}(id=${category.id})}" th:onclick="'return confirm(\'Вы уверены, что хотите удалить?\')'">Удалить</a>
