@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Shopping Cart</title>
+  <link rel="stylesheet" type="text/css" href="/static/styles.css">
+  <style>
+    /* Basic styles for the shopping cart */
+    .cart-container {
+      margin: 20px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background-color: #f9f9f9;
+    }
+
+    .cart-title {
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .cart-items {
+      list-style: none;
+      padding: 0;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+
+    .item-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .item-quantity {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .clear-cart {
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+<div class="cart-container">
+  <div class="cart-title">Your Shopping Cart</div>
+
+  <ul class="cart-items">
+    <li th:each="item : ${cart.items}" class="cart-item">
+      <!-- Product Name -->
+      <span th:text="${item.product.name}">Product Name</span>
+
+      <!-- Product Quantity -->
+      <span class="item-quantity" th:text="${item.quantity}">1</span>
+
+      <div class="item-actions">
+        <!-- Remove Item Button -->
+        <form th:action="@{/cart/remove}" method="post">
+          <input type="hidden" name="productId" th:value="${item.product.id}">
+          <button type="submit">Remove</button>
+        </form>
+      </div>
+    </li>
+  </ul>
+
+  <!-- Total Price -->
+  <p>Total: <span th:text="${#lists.sum(cart.items, 'product.price * quantity')}"></span></p>
+
+  <!-- Clear Cart Button -->
+  <div class="clear-cart">
+    <form th:action="@{/cart/clear}" method="post">
+      <button type="submit">Clear Cart</button>
+    </form>
+  </div>
+</div>
+
+<!-- Back to Products -->
+<div style="text-align: center; margin-top: 20px;">
+  <a href="/products">Continue Shopping</a>
+</div>
+</body>
+</html>

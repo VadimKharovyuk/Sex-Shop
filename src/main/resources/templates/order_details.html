@@ -1,0 +1,75 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="ru">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>Детали заказа</title>-->
+<!--  <link rel="stylesheet" type="text/css" href="/static/styles.css"> &lt;!&ndash; Подключение CSS стилей &ndash;&gt;-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Детали заказа</h1>-->
+
+<!--&lt;!&ndash; Отображение деталей заказа &ndash;&gt;-->
+<!--<div>-->
+<!--  <p><strong>Номер заказа:</strong> <span th:text="${order.id}"></span></p>-->
+<!--&lt;!&ndash;  <p><strong>Дата создания:</strong> <span th:text="${order.creationDate}"></span></p>&ndash;&gt;-->
+<!--  <p><strong>Статус:</strong> <span th:text="${order.status}"></span></p>-->
+
+<!--  <h2>Товары в заказе</h2>-->
+<!--  <ul>-->
+<!--    &lt;!&ndash; Перебор товаров в заказе &ndash;&gt;-->
+<!--    <li th:each="product : ${order.products}">-->
+<!--      <span th:text="${product.name}"></span> - &lt;!&ndash; Имя товара &ndash;&gt;-->
+<!--      <span th:text="${product.quantity}"></span> шт. &lt;!&ndash; Количество &ndash;&gt;-->
+<!--      (<strong>Цена:</strong> <span th:text="${product.price}"></span>) &lt;!&ndash; Цена за шт. &ndash;&gt;-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Ссылки для действий с заказом &ndash;&gt;-->
+<!--<div>-->
+<!--  <a href="/orders">Назад к списку заказов</a> &lt;!&ndash; Ссылка на возврат &ndash;&gt;-->
+<!--  <a th:href="@{/orders/edit/{id}(id=${order.id})}">Редактировать заказ</a> &lt;!&ndash; Ссылка на редактирование &ndash;&gt;-->
+<!--  <form th:action="@{/orders/delete/{id}(id=${order.id})}" method="post"> &lt;!&ndash; Удаление заказа &ndash;&gt;-->
+<!--    <button type="submit">Удалить заказ</button>-->
+<!--  </form>-->
+<!--</div>-->
+
+<!--</body>-->
+<!--</html>-->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Детали заказа</title>
+  <link rel="stylesheet" type="text/css" href="/static/styles.css"> <!-- Подключение CSS стилей -->
+</head>
+<body>
+<h1>Детали заказа</h1>
+
+<!-- Отображение деталей заказа -->
+<div>
+  <p><strong>Номер заказа:</strong> <span th:text="${order.id}"></span></p>
+  <p><strong>Статус:</strong> <span th:text="${order.status}"></span></p>
+
+  <h2>Товары в заказе</h2>
+  <ul>
+    <!-- Перебор товаров в заказе -->
+    <li th:each="item : ${order.products}">
+      <span th:if="${item.product != null}" th:text="${item.product.name}">Имя продукта</span> -
+      <span th:if="${item.quantity != null}" th:text="${item.quantity}">0</span> шт.
+      (<strong>Цена:</strong> <span th:if="${item.product != null}" th:text="${item.product.price}">0</span>)
+    </li>
+  </ul>
+</div>
+
+<!-- Ссылки для действий с заказом -->
+<div>
+  <a href="/orders">Назад к списку заказов</a> <!-- Ссылка на возврат -->
+  <a th:href="@{/orders/edit/{id}(id=${order.id})}">Редактировать заказ</a> <!-- Ссылка на редактирование -->
+  <form th:action="@{/orders/delete/{id}(id=${order.id})}" method="post"> <!-- Удаление заказа -->
+    <button type="submit">Удалить заказ</button>
+  </form>
+</div>
+
+</body>
+</html>

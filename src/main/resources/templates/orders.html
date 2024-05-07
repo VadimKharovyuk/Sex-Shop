@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Все заказы</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css"> <!-- Подключение CSS стилей -->
+</head>
+<body>
+<h1>Список заказов</h1>
+
+<!-- Таблица для отображения всех заказов -->
+<table>
+    <thead>
+    <tr>
+        <th>Номер заказа</th>
+
+        <th>Статус</th>
+        <th>Детали</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Перебор всех заказов -->
+    <tr th:each="order : ${orders}">
+        <td th:text="${order.id}"></td> <!-- Номер заказа -->
+<!--        <td th:text="${order.creationDate}"></td> &lt;!&ndash; Дата создания &ndash;&gt;-->
+        <td th:text="${order.status}"></td> <!-- Статус заказа -->
+        <td>
+            <!-- Ссылка на детали заказа -->
+            <a th:href="@{/orders/{id}(id=${order.id})}">Просмотреть</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- Ссылка для добавления нового заказа -->
+<a href="/orders/new">Создать новый заказ</a>
+
+</body>
+</html>

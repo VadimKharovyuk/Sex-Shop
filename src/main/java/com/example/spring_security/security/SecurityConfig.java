@@ -46,8 +46,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .authorizeHttpRequests((req -> req
-                        .requestMatchers("/categories/**", "/products/**", "/registration", "/login", "/", "/static/pic/**", "/templates/pic/**","/cart/**","/deliveries/**").permitAll() // Разрешение на открытый доступ
-                        .requestMatchers("/profile/**", "/orders/**").authenticated() // Требование аутентификации
+                        .requestMatchers("/categories/**" ,"/orders/**","/products/**", "/registration", "/login", "/", "/static/pic/**", "/templates/pic/**","/cart/**","/deliveries/**").permitAll() // Разрешение на открытый доступ
+                        .requestMatchers("/profile/**").authenticated() // Требование аутентификации
                         .anyRequest().authenticated() // Любые другие запросы также требуют аутентификации
                 ))
                 .formLogin((form -> form

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Детали элемента заказа</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css"> <!-- Подключение стилей -->
+</head>
+<body>
+<h1>Детали элемента заказа</h1>
+
+<!-- Отображаем детали элемента заказа -->
+<p><strong>ID:</strong> <span th:text="${orderItem.id}"></span></p>
+<p><strong>Название продукта:</strong> <span th:text="${orderItem.product.name}"></span></p>
+<p><strong>Количество:</strong> <span th:text="${orderItem.quantity}"></span></p>
+<p><strong>Цена за единицу:</strong> <span th:text="${orderItem.pricePerUnit}"></span></p>
+
+<!-- Ссылка для возврата ко всем элементам заказа -->
+<a href="/order-items">Назад к элементам заказа</a>
+</body>
+</html>

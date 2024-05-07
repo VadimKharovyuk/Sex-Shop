@@ -24,9 +24,9 @@ public class Delivery {
     private String email; // Email
     private String address; // Адрес доставки
 
-    @ManyToOne
-    @JoinColumn(name = "order_id") // Связь с заказом
-    private CustomerOrder order; // Заказ, связанный с этой доставкой
+//    @ManyToOne
+//    @JoinColumn(name = "order_id") // Связь с заказом
+//    private CustomerOrder order; // Заказ, связанный с этой доставкой
 
     private LocalDate shipmentDate; // Дата отправки
     private LocalDate receiptDate; // Дата получения

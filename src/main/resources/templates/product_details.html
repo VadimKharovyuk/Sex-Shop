@@ -82,6 +82,14 @@
     <form th:action="@{/products/delete/{id}(id=${product.id})}" method="post">
         <button type="submit">Удалить</button>
     </form>
+    <form th:action="@{/orders/add}" method="post">
+        <!-- Поле для количества -->
+        <input type="number" name="quantity" min="1" value="1" required>
+        <!-- Скрытое поле для идентификатора товара -->
+        <input type="hidden" name="productId" th:value="${product.id}">
+        <!-- Кнопка для добавления в корзину -->
+        <button type="submit">Добавить в корзину</button>
+    </form>
 </div>
 <a href="/products">Назад ко всем товарам</a>
 </body>
