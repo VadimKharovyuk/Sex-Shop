@@ -1,46 +1,78 @@
 package com.example.spring_security.controller;
 
 import com.example.spring_security.entity.Delivery;
+import com.example.spring_security.entity.ShoppingCart;
 import com.example.spring_security.service.DeliveryService;
+import com.example.spring_security.service.ShoppingCartService;
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+import java.util.List;
+
 @Controller
-@RequestMapping("/deliveries") // Базовый путь для всех маршрутов в этом контроллере
+@RequestMapping("/deliveries")
 @AllArgsConstructor
 public class DeliveryController {
-
+    private final ShoppingCartService shoppingCartService;
     private final DeliveryService deliveryService;
 
-    // Получение всех доставок
-    @GetMapping
-    public String getAllDeliveries(Model model) {
-        model.addAttribute("deliveries", deliveryService.getAllDeliveries());
-        return "deliveries"; // Имя Thymeleaf-шаблона для списка доставок
-    }
-
-    // Метод для получения страницы с формой для создания новой доставки
     @GetMapping("/create")
-    public String getCreateDeliveryForm(Model model) {
-        model.addAttribute("delivery", new Delivery()); // Пустой объект для формы
-        return "create_delivery"; // Имя Thymeleaf-шаблона для формы
+    public String createDeliveryForm(HttpSession session, Model model) {
+        ShoppingCart cart = shoppingCartService.getCartFromSession(session);
+
+        model.addAttribute("delivery", new Delivery()); // Объект для новой доставки
+        model.addAttribute("cart", cart); // Передаем корзину в шаблон
+
+        return "create_delivery"; // Шаблон для создания новой доставки
     }
 
-    // Получение доставки по ID
-    @GetMapping("/{id}")
-    public String getDeliveryById(@PathVariable Long id, Model model) {
-        Delivery delivery = deliveryService.getDeliveryById(id);
-        model.addAttribute("delivery", delivery);
-        return "delivery";
+//    @PostMapping("/createFromCart")
+//    public String createDeliveryFromCart(HttpSession session, @RequestParam("cartItems") List<Long> productIds) {
+//        ShoppingCart cart = shoppingCartService.getCartFromSession(session);
+//
+//        if (cart != null) {
+//            deliveryService.createDeliveryFromCart(cart, productIds); // Передача списка напрямую
+//            shoppingCartService.clearCart(cart); // Очистка корзины после оформления доставки
+//        }
+//
+//        return "redirect:/deliveries"; // Перенаправление к списку доставок
+//    }
+
+
+//    @PostMapping("/createFromCart")
+//    public String createDeliveryFromCart(HttpSession session, Model model, @RequestParam("productIds") List<Long> productIds) {
+//        ShoppingCart cart = shoppingCartService.getCartFromSession(session); // Получаем корзину из сессии
+//        if (cart == null || cart.getItems().isEmpty()) {
+//            return "redirect:/cart"; // Если корзина пуста, перенаправляем обратно
+//        }
+//
+//        // Создаем новую доставку, используя корзину и переданные идентификаторы продуктов
+//        Delivery newDelivery = deliveryService.createDeliveryFromCart(cart, productIds);
+//        model.addAttribute("delivery", newDelivery); // Передаем созданную доставку в модель
+//
+//        // Очищаем корзину после создания доставки
+//        shoppingCartService.clearCart(cart);
+//
+//        return "redirect:/deliveries"; // Перенаправляем к списку доставок
+//    }
+@PostMapping("/createFromCart")
+public String createDeliveryFromCart(HttpSession session, Model model, @RequestParam("productIds") List<Long> productIds) {
+    if (productIds == null || productIds.isEmpty()) {
+        return "redirect:/cart"; // Если параметр отсутствует, перенаправляем обратно
     }
 
-    // Создание новой доставки
-    @PostMapping
-    public String createDelivery(@ModelAttribute Delivery delivery) {
-        // Сохраняем новую доставку в базу данных
-        deliveryService.save(delivery);
-        return "redirect:/deliveries"; // Перенаправление на страницу со списком доставок
-    }
+    // Получаем корзину из сессии и создаем доставку
+    ShoppingCart cart = shoppingCartService.getCartFromSession(session);
+    Delivery newDelivery = deliveryService.createDeliveryFromCart(cart, productIds);
+    model.addAttribute("delivery", newDelivery);
+
+    shoppingCartService.clearCart(cart); // Очищаем корзину после доставки
+
+    return "redirect:/deliveries";
+}
+
 }

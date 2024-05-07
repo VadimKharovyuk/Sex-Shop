@@ -55,11 +55,45 @@
     </style>
 </head>
 <body>
+<!--<div class="container"> &lt;!&ndash; Блок-контейнер для стилизации &ndash;&gt;-->
+<!--    <h1>Создать новую доставку</h1> &lt;!&ndash; Заголовок страницы &ndash;&gt;-->
+
+<!--    &lt;!&ndash; Форма создания новой доставки &ndash;&gt;-->
+<!--    <form th:action="@{/deliveries}" th:object="${delivery}" method="post">-->
+<!--        &lt;!&ndash; Поле для типа доставки &ndash;&gt;-->
+<!--        <div class="form-group">-->
+<!--            <label for="type">Тип доставки:</label>-->
+<!--            <select id="type" name="type" th:field="*{type}"> &lt;!&ndash; Выпадающий список с типами доставки &ndash;&gt;-->
+<!--                <option th:each="dt : ${T(com.example.spring_security.entity.DeliveryType).values()}" th:value="${dt}" th:text="${dt.name()}"></option>-->
+<!--            </select>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Поле для даты отправки &ndash;&gt;-->
+<!--        <div class="form-group">-->
+<!--            <label for="shipmentDate">Дата отправки:</label>-->
+<!--            <input type="date" id="shipmentDate" name="shipmentDate" th:field="*{shipmentDate}" required>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Поле для даты получения &ndash;&gt;-->
+<!--        <div class="form-group">-->
+<!--            <label for="receiptDate">Дата получения:</label>-->
+<!--            <input type="date" id="receiptDate" name="receiptDate" th:field="*{receiptDate}">-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Кнопка для отправки формы &ndash;&gt;-->
+<!--        <div class="form-group">-->
+<!--            <button type="submit">Создать</button> &lt;!&ndash; Кнопка для отправки &ndash;&gt;-->
+<!--        </div>-->
+<!--    </form>-->
+
+<!--    &lt;!&ndash; Ссылка для возврата к списку доставок &ndash;&gt;-->
+<!--    <a href="/deliveries">Назад к списку доставок</a>-->
+<!--</div>-->
 <div class="container"> <!-- Блок-контейнер для стилизации -->
     <h1>Создать новую доставку</h1> <!-- Заголовок страницы -->
 
     <!-- Форма создания новой доставки -->
-    <form th:action="@{/deliveries}" th:object="${delivery}" method="post">
+    <form th:action="@{/deliveries/createFromCart}" th:object="${delivery}" method="post">
         <!-- Поле для типа доставки -->
         <div class="form-group">
             <label for="type">Тип доставки:</label>
@@ -80,6 +114,16 @@
             <input type="date" id="receiptDate" name="receiptDate" th:field="*{receiptDate}">
         </div>
 
+        <!-- Выпадающий список товаров из корзины -->
+        <!-- Выпадающий список товаров из корзины -->
+        <div class="form-group">
+            <label for="cartItems">Товары из корзины:</label>
+            <select id="cartItems" name="productIds" multiple> <!-- Имя параметра должно быть 'productIds' -->
+                <option th:each="item : ${cart.items}" th:value="${item.product.id}" th:text="${item.product.name}"></option>
+            </select>
+        </div>
+
+
         <!-- Кнопка для отправки формы -->
         <div class="form-group">
             <button type="submit">Создать</button> <!-- Кнопка для отправки -->
@@ -89,5 +133,7 @@
     <!-- Ссылка для возврата к списку доставок -->
     <a href="/deliveries">Назад к списку доставок</a>
 </div>
+
 </body>
+
 </html>

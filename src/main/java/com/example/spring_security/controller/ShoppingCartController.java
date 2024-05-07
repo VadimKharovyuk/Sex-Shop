@@ -16,32 +16,51 @@ import org.springframework.web.bind.annotation.*;
 public class ShoppingCartController {
     private final ShoppingCartService shoppingCartService;
     private final ProductService productService;
-
     @GetMapping
-    public String viewCart(Model model, HttpSession session) {
-        ShoppingCart cart = getOrCreateCart(session); // Получаем корзину из сессии или создаем новую
+    public String viewCart(HttpSession session, Model model) {
+        ShoppingCart cart = shoppingCartService.getCartFromSession(session); // Получаем корзину из сессии
         model.addAttribute("cart", cart);
         model.addAttribute("totalPrice", shoppingCartService.getTotalPrice(cart)); // Общая стоимость корзины
-        return "shopping_cart"; // Имя шаблона для отображения корзины
+        return "shopping_cart"; // Возвращаем имя шаблона для корзины
     }
 
     @PostMapping("/add")
     public String addToCart(@RequestParam Long productId, @RequestParam int quantity, HttpSession session) {
-        ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
-
-        if (cart == null) {
-            cart = shoppingCartService.createCart(); // Если корзина не была создана
-            session.setAttribute("cart", cart); // Сохраняем в сессии
-        }
-
+        ShoppingCart cart = shoppingCartService.getCartFromSession(session); // Получаем корзину из сессии
         Product product = productService.getProductById(productId);
 
         if (product != null) {
-            shoppingCartService.addItemToCart(cart, product, quantity); // Добавляем товар в корзину
+            shoppingCartService.addItemToCart(cart, product, quantity);
         }
 
-        return "redirect:/cart"; // Перенаправляем на страницу корзины
+        return "redirect:/cart"; // Перенаправляем к корзине после добавления товара
     }
+
+//    @GetMapping
+//    public String viewCart(Model model, HttpSession session) {
+//        ShoppingCart cart = getOrCreateCart(session); // Получаем корзину из сессии или создаем новую
+//        model.addAttribute("cart", cart);
+//        model.addAttribute("totalPrice", shoppingCartService.getTotalPrice(cart)); // Общая стоимость корзины
+//        return "shopping_cart"; // Имя шаблона для отображения корзины
+//    }
+
+//    @PostMapping("/add")
+//    public String addToCart(@RequestParam Long productId, @RequestParam int quantity, HttpSession session) {
+//        ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
+//
+//        if (cart == null) {
+//            cart = shoppingCartService.createCart(); // Если корзина не была создана
+//            session.setAttribute("cart", cart); // Сохраняем в сессии
+//        }
+//
+//        Product product = productService.getProductById(productId);
+//
+//        if (product != null) {
+//            shoppingCartService.addItemToCart(cart, product, quantity); // Добавляем товар в корзину
+//        }
+//
+//        return "redirect:/cart"; // Перенаправляем на страницу корзины
+//    }
 
 
     @PostMapping("/remove")

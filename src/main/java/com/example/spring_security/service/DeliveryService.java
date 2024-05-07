@@ -1,26 +1,38 @@
 package com.example.spring_security.service;
 
 import com.example.spring_security.entity.Delivery;
+import com.example.spring_security.entity.ShoppingCart;
 import com.example.spring_security.repositoty.DeliveryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class DeliveryService {
 
-    private final DeliveryRepository deliveryRepository;
+private final DeliveryRepository deliveryRepository;
+    private final ShoppingCartService shoppingCartService;
 
-    @Autowired
-    public DeliveryService(DeliveryRepository deliveryRepository) {
-        this.deliveryRepository = deliveryRepository;
+    public Delivery createDeliveryFromCart(ShoppingCart cart, List<Long> productIds) {
+        Delivery delivery = new Delivery();
+
+        LocalDate shipmentDate = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        delivery.setShipmentDate(shipmentDate); // Устанавливаем дату отправки
+
+        // Устанавливаем список товаров из корзины в доставку
+        delivery.setItems(cart.getItems());
+
+        // Сохранение новой доставки
+        deliveryRepository.save(delivery);
+
+        return delivery;
     }
 
-    public Delivery save(Delivery delivery) {
-        return deliveryRepository.save(delivery);
-    }
 
     public List<Delivery> getAllDeliveries() {
         return deliveryRepository.findAll();
@@ -28,7 +40,7 @@ public class DeliveryService {
 
     public Delivery getDeliveryById(Long id) {
         return deliveryRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Delivery not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Delivery not found with ID " + id));
     }
 
     public void deleteDelivery(Long id) {

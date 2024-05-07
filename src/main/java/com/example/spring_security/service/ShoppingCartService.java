@@ -5,6 +5,7 @@ import com.example.spring_security.entity.ShoppingCart;
 import com.example.spring_security.entity.ShoppingCartItem;
 import com.example.spring_security.repositoty.ShoppingCartItemRepository;
 import com.example.spring_security.repositoty.ShoppingCartRepository;
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -82,5 +83,18 @@ public class ShoppingCartService {
 
     public void deleteCart(ShoppingCart cart) {
         shoppingCartRepository.delete(cart);
+    }
+
+    public ShoppingCart getCartFromSession(HttpSession session) {
+        // Получаем корзину из атрибутов сессии
+        ShoppingCart cart = (ShoppingCart) session.getAttribute("shoppingCart");
+
+        if (cart == null) {
+            // Если корзина не существует, создаем новую и добавляем ее в сессию
+            cart = createCart(); // Создаем новую корзину
+            session.setAttribute("shoppingCart", cart); // Сохраняем корзину в сессии
+        }
+
+        return cart; // Возвращаем найденную или новую корзину
     }
 }

@@ -83,6 +83,9 @@
       <button type="submit">Удалить</button>
     </form>
 
+
+
+
     <!-- Обновить количество товара -->
     <form th:action="@{/cart/update}" method="post">
       <input type="hidden" name="productId" th:value="${item.product.id}"/> <!-- Скрытый идентификатор продукта -->
@@ -94,6 +97,9 @@
 
 <!-- Отображение итоговой суммы корзины -->
 <p><strong>Итоговая сумма:</strong> <span th:text="${totalPrice}"></span> UAH.</p>
+<form th:action="@{/deliveries/create}" method="get">
+  <button type="submit">Оформить доставку</button>
+</form><br><br>
 
 <!-- Очистка всей корзины -->
 <form th:action="@{/cart/clear}" method="post">
@@ -102,6 +108,7 @@
 
 <!-- Ссылка для возврата к списку продуктов -->
 <a href="/products">Вернуться к списку продуктов</a>
+
 
 </body>
 </html>
