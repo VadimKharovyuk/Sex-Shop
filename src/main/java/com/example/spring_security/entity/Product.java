@@ -24,6 +24,7 @@ public class Product {
     private String description; // Описание товара
     private double price; // Цена товара
     private String image; // Путь к изображению товара
+    private String imagePath; // Поле для пути к изображению
 
     @ManyToOne(fetch = FetchType.LAZY) // Обеспечиваем ленивую загрузку
     @JoinColumn(name = "category_id") // Связь с категорией

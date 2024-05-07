@@ -11,9 +11,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/products") // Базовый путь для всех маршрутов контроллера
@@ -39,23 +45,62 @@ public class ProductController {
     }
 
     // Форма для добавления продукта
+//    @GetMapping("/add")
+//    public String getAddProductForm(Model model) {
+//        model.addAttribute("product", new Product());
+//        model.addAttribute("categories", categoryService.getAllCategories());
+//        return "add_product"; // Имя Thymeleaf-шаблона для добавления продукта
+//    }
+//
+//    // Добавление нового продукта
+//    @PostMapping("/add")
+//    public String addProduct(@ModelAttribute Product product) {
+//            productService.addProduct(product);
+//            return "redirect:/products"; // Перенаправление после успешного добавления
+//
+//    }
+    // Путь к каталогу изображений
+    private static final String IMAGE_DIRECTORY = "src/main/resources/static/pic/";
+
     @GetMapping("/add")
-    public String getAddProductForm(Model model) {
+    public String createProductForm(Model model) {
         model.addAttribute("product", new Product());
         model.addAttribute("categories", categoryService.getAllCategories());
-        return "add_product"; // Имя Thymeleaf-шаблона для добавления продукта
+
+        // Получение списка доступных изображений из каталога
+        List<String> availableImages = getAvailableImages();
+        model.addAttribute("availableImages", availableImages);
+
+        return "add_product"; // Имя шаблона
     }
 
-    // Добавление нового продукта
     @PostMapping("/add")
-    public String addProduct(@ModelAttribute Product product) {
-            productService.addProduct(product);
-            return "redirect:/products"; // Перенаправление после успешного добавления
+    public String addProduct(
+            @ModelAttribute Product product,
+            @RequestParam("image") String image, // Имя параметра должно соответствовать имени в форме
+            RedirectAttributes redirectAttributes
+    ) {
+        if (image != null && !image.isEmpty()) {
+            product.setImagePath("/static/pic/" + image); // Используем значение параметра
+        }
 
+        productService.saveProduct(product); // Сохранение продукта
+        return "redirect:/products"; // Перенаправление после успешного добавления
     }
 
 
-
+    private List<String> getAvailableImages() {
+        try {
+            Path path = Paths.get(IMAGE_DIRECTORY);
+            return Files.list(path)
+                    .filter(Files::isRegularFile)
+                    .map(p -> p.getFileName().toString())
+                    .collect(Collectors.toList());
+        } catch (IOException e) {
+            logger.error("Failed to list images", e);
+            return List.of(); // Возвращаем пустой список в случае ошибки
+        }
+    }
 
 
     // Получение всех товаров
@@ -102,7 +147,6 @@ public class ProductController {
             return "redirect:/error?message=Product not found"; // Если продукт не найден
         }
     }
-
 
 
     @GetMapping("/by-category/{categoryId}")

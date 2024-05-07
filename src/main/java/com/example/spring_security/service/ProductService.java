@@ -111,18 +111,24 @@ public class ProductService {
 
     private  final  ShoppingCartItemRepository shoppingCartItemRepository;
 
+
+
+    @Transactional
     public void deleteProduct(Long productId) {
         try {
-            deleteProduct(productId); // Удаляем продукт
+            // Удаление всех элементов корзины, связанных с этим продуктом
+            shoppingCartItemRepository.deleteByProductId(productId);
+
+            // Удаление самого продукта из репозитория
+            productRepository.deleteById(productId);
         } catch (DataIntegrityViolationException ex) {
             // Обработка исключения при нарушении целостности данных
             throw new IllegalStateException("Product cannot be deleted because it has associated cart items.", ex);
+        } catch (EntityNotFoundException ex) {
+            throw new IllegalStateException("Product with ID " + productId + " not found", ex);
         }
-
-        // Удаление всех элементов корзины, связанных с продуктом
-        shoppingCartItemRepository.deleteByProductId(productId);
-        productRepository.deleteById(productId); // Удаление самого продукта
     }
+
 
 
     public List<Product> findProductsByCategory(Long categoryId) {
@@ -169,6 +175,10 @@ public class ProductService {
 
 
     public void addProduct(Product product) {
+        productRepository.save(product);
+    }
+
+    public void saveProduct(Product product) {
         productRepository.save(product);
     }
 }

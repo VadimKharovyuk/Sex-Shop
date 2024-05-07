@@ -164,7 +164,7 @@
     <!-- Ссылки для редактирования и удаления продукта -->
     <a th:href="@{/products/update/{id}(id=${product.id})}">Редактировать</a>
     <form th:action="@{/products/delete/{id}(id=${product.id})}" method="post">
-        <button type="submit">Удалить</button>
+        <button type="submit">Удалить+</button>
     </form>
 </div>
 
