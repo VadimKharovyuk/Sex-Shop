@@ -1,22 +1,54 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="ru">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Форма категории</title>-->
+<!--    <link rel="stylesheet" type="text/css" href="/static/styles.css"> &lt;!&ndash; Подключение стилей &ndash;&gt;-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Форма категории</h1>-->
+
+<!--<form th:action="@{/categories/save}" th:object="${category}" method="post"> &lt;!&ndash; Путь для сохранения &ndash;&gt;-->
+<!--    <div>-->
+<!--        <label for="name">Название категории:</label>-->
+<!--        <input type="text" id="name" name="name" th:field="*{name}" required> &lt;!&ndash; Привязка к имени категории &ndash;&gt;-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Кнопка для отправки формы &ndash;&gt;-->
+<!--    <div>-->
+<!--        <button type="submit">Сохранить</button> &lt;!&ndash; Кнопка для сохранения &ndash;&gt;-->
+<!--    </div>-->
+<!--</form>-->
+
+<!--&lt;!&ndash; Ссылка для возврата к списку категорий &ndash;&gt;-->
+<!--<a href="/categories">Назад к списку категорий</a>-->
+<!--</body>-->
+<!--</html>-->
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Форма категории</title>
-    <link rel="stylesheet" type="text/css" href="/static/styles.css"> <!-- Подключение стилей -->
+    <link rel="stylesheet" type="text/css" href="/static/styles.css">
 </head>
 <body>
 <h1>Форма категории</h1>
 
-<form th:action="@{/categories/save}" th:object="${category}" method="post"> <!-- Путь для сохранения -->
+<form th:action="@{/categories/save}" th:object="${category}" method="post">
     <div>
         <label for="name">Название категории:</label>
-        <input type="text" id="name" name="name" th:field="*{name}" required> <!-- Привязка к имени категории -->
+        <input type="text" id="name" name="name" th:field="*{name}" required>
     </div>
 
-    <!-- Кнопка для отправки формы -->
     <div>
-        <button type="submit">Сохранить</button> <!-- Кнопка для сохранения -->
+        <label for="image">Выберите изображение:</label>
+        <select id="image" name="image"> <!-- Выпадающий список для выбора изображения -->
+            <option th:each="img : ${availableImages}" th:value="${img}" th:text="${img}"></option>
+        </select>
+    </div>
+
+    <div>
+        <button type="submit">Сохранить</button>
     </div>
 </form>
 
@@ -24,3 +56,4 @@
 <a href="/categories">Назад к списку категорий</a>
 </body>
 </html>
+

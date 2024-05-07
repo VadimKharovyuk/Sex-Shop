@@ -57,4 +57,7 @@ public class CategoryService {
         return categoryRepository.existsById(categoryId);
     }
 
+    public void saveCategory(Category category) {
+        categoryRepository.save(category);
+    }
 }

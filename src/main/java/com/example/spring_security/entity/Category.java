@@ -20,6 +20,7 @@ public class Category {
     private Long id; // Уникальный идентификатор
 
     private String name; // Название категории
+    private String imagePath; // Путь к изображению
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Product> products; // Список товаров в этой категории
