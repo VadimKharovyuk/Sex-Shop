@@ -68,11 +68,12 @@ public String createDeliveryFromCart(HttpSession session, Model model, @RequestP
     // Получаем корзину из сессии и создаем доставку
     ShoppingCart cart = shoppingCartService.getCartFromSession(session);
     Delivery newDelivery = deliveryService.createDeliveryFromCart(cart, productIds);
-    model.addAttribute("delivery", newDelivery);
 
     shoppingCartService.clearCart(cart); // Очищаем корзину после доставки
 
-    return "redirect:/deliveries";
+    return "redirect:/deliveries"; // Перенаправление после создания доставки
 }
+
+
 
 }

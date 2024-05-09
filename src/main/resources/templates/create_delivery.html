@@ -118,7 +118,7 @@
         <!-- Выпадающий список товаров из корзины -->
         <div class="form-group">
             <label for="cartItems">Товары из корзины:</label>
-            <select id="cartItems" name="productIds" multiple> <!-- Имя параметра должно быть 'productIds' -->
+            <select id="cartItems" name="productIds" multiple> <!-- Имя параметра 'productIds' и атрибут multiple -->
                 <option th:each="item : ${cart.items}" th:value="${item.product.id}" th:text="${item.product.name}"></option>
             </select>
         </div>
