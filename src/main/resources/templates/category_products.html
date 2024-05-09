@@ -59,9 +59,7 @@
     <!-- Перебор всех товаров по категории -->
     <div th:each="product : ${products}" class="card">
         <!-- Изображение продукта -->
-<!--        <img th:src="${product.image}" alt="Изображение продукта" />-->
-        <img th:src="@{/pic/category2.jpg}" alt="Изображение продукта" />
-
+        <img th:src="@{/pic/category2.jpg}" class="pic" alt="Изображение категории" />
 
         <!-- Название продукта -->
         <h3 th:text="${product.name}"></h3>
@@ -71,8 +69,12 @@
 
         <!-- Цена продукта -->
         <p>Цена: <span th:text="${product.price}"></span></p>
+
+        <!-- Ссылка "Подробнее" -->
+        <a th:href="@{'/products/' + ${product.id}}" class="btn btn-info">Подробнее</a> <!-- Ссылка по ID товара -->
     </div>
 </div>
+
 
 <!-- Ссылка для возврата к списку всех товаров -->
 <a href="/products">Назад ко всем товарам</a>

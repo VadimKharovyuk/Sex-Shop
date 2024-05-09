@@ -111,7 +111,7 @@ public class ProductController {
         return "all_products"; // Имя шаблона для отображения всех товаров
     }
 
-    // Получение товара по ID
+//     Получение товара по ID
     @GetMapping("/{id}")
     public String getProductById(@PathVariable Long id, Model model) {
         try {
@@ -123,6 +123,7 @@ public class ProductController {
             return "redirect:/error?message=Product not found"; // Перенаправление на страницу ошибки
         }
     }
+
 
     // Обновление продукта
     @PutMapping("/{id}")
