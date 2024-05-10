@@ -81,7 +81,7 @@
     <div th:each="category : ${categories}" class="card">
         <!-- Изображение категории -->
         <!-- Используем th:src с @{} для указания пути к статическому изображению -->
-        <img th:src="@{/pic/category4.jpg}" alt="Изображение категории" />
+        <img th:src="${category.imagePath}" class="pic"/>
 
 <!--<img src="https://isex.com.ua/products_pictures/resized/11233-1.jpg-800-557.71428571429.jpg">-->
         <!-- Название категории -->
