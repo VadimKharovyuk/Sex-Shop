@@ -114,20 +114,28 @@
 <body>
 <h1 style="text-align: center">Список продуктов</h1>
 
-<!-- Ссылка для перехода к форме добавления нового продукта -->
+<!--<img th:src="@{/pic/20863-7.jpg-229-190.jpg}" alt="Изображение продукта" class="pic" />-->
+
 <a href="/products/add">Добавить новый продукт</a>
 
 
-<!-- Контейнер для карточек продуктов -->
 <div class="product-list">
-    <!-- Перебираем продукты и создаем карточки -->
+
     <div class="product-card" th:each="product : ${products}">
-        <h2 th:text="${product.name}"></h2> <!-- Название продукта -->
-        <img th:src="@{/pic/category3.jpg}" class="pic" alt="Изображение категории" />
-        <p th:text="${product.description}"></p> <!-- Описание продукта -->
-        <p><strong>Цена:</strong> <span th:text="${product.price}"></span></p> <!-- Цена продукта -->
+        <h2 th:text="${product.name}"></h2>
+
+<!--        <img th:src="@{/pic/category3.jpg}" class="pic" alt="Изображение категории" />-->
+
+
+        <img th:src="${product.image}" class="pic"/>
+
+
+
+        <p th:text="${product.description}"></p>
+        <p><strong>Цена:</strong> <span th:text="${product.price}"></span></p>
+
         <p><strong>Категория:</strong> <span th:text="${product.category.name}"></span></p> <!-- Название категории -->
-        <a th:href="@{'/products/' + ${product.id}}" class="more-button">Подробнее</a> <!-- Ссылка на детали продукта -->
+        <a th:href="@{'/products/' + ${product.id}}" class="more-button">Подробнее</a>
     </div>
 
 </div>

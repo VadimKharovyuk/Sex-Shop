@@ -98,29 +98,29 @@ public class ProductController {
                     .collect(Collectors.toList());
         } catch (IOException e) {
             logger.error("Failed to list images", e);
-            return List.of(); // Возвращаем пустой список в случае ошибки
+            return List.of();
         }
     }
 
 
-    // Получение всех товаров
     @GetMapping
     public String getAllProducts(Model model) {
         List<Product> allProducts = productService.getAllProducts();
         model.addAttribute("products", allProducts);
-        return "all_products"; // Имя шаблона для отображения всех товаров
+        return "all_products"; //
     }
 
-//     Получение товара по ID
+
+
     @GetMapping("/{id}")
     public String getProductById(@PathVariable Long id, Model model) {
         try {
             Product product = productService.getProductById(id);
             model.addAttribute("product", product);
-            return "product_details"; // Имя шаблона для отображения деталей товара
+            return "product_details";
         } catch (EntityNotFoundException ex) {
             logger.error("Product not found for ID " + id, ex);
-            return "redirect:/error?message=Product not found"; // Перенаправление на страницу ошибки
+            return "redirect:/error?message=Product not found";
         }
     }
 

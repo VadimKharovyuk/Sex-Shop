@@ -10,8 +10,8 @@
 
 
 
-<p><strong>ID:</strong> <span th:text="${category.id}"></span></p> <!-- Отображение ID -->
-<p><strong>Название:</strong> <span th:text="${category.name}"></span></p> <!-- Отображение имени -->
+<p><strong>ID:</strong> <span th:text="${category.id}"></span></p>
+<p><strong>Название:</strong> <span th:text="${category.name}"></span></p>
 
 <!-- Ссылка для редактирования категории -->
 <a th:href="@{/categories/edit/{id}(id=${category.id})}">Редактировать</a>

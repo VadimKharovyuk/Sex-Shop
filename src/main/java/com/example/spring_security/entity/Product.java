@@ -18,20 +18,22 @@ import java.util.List;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // Уникальный идентификатор
+    private Long id;
 
-    private String name; // Название товара
-    private String description; // Описание товара
-    private double price; // Цена товара
-    private String image; // Путь к изображению товара
-    private String imagePath; // Поле для пути к изображению
+    private String name;
+    private String description;
+    private double price;
+    private String image;
 
-    @ManyToOne(fetch = FetchType.LAZY) // Обеспечиваем ленивую загрузку
-    @JoinColumn(name = "category_id") // Связь с категорией
-    private Category category; // Связь с категорией
+
+    private String imagePath;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category; //
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private List<ShoppingCartItem> cartItems; // Список связанных элементов корзины
+    private List<ShoppingCartItem> cartItems;
 
 
 
