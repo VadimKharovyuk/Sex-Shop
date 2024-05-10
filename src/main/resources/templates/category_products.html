@@ -59,7 +59,8 @@
     <!-- Перебор всех товаров по категории -->
     <div th:each="product : ${products}" class="card">
         <!-- Изображение продукта -->
-        <img th:src="@{/pic/category2.jpg}" class="pic" alt="Изображение категории" />
+<!--        <img th:src="@{/pic/category2.jpg}" class="pic" alt="Изображение категории" />-->
+        <img th:src="${product.image}" class="pic"/>
 
         <!-- Название продукта -->
         <h3 th:text="${product.name}"></h3>
