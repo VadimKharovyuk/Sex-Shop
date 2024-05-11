@@ -1,116 +1,63 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="ru">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Создать доставку</title>-->
-<!--    <link rel="stylesheet" type="text/css" href="/static/styles.css"> &lt;!&ndash; Подключение стилей &ndash;&gt;-->
-<!--    <style>-->
-<!--        /* styles.css */-->
-
-<!--        /* Стилизация для контейнера */-->
-<!--        .container {-->
-<!--            margin: 20px;-->
-<!--            padding: 20px;-->
-<!--            border: 1px solid #ccc;-->
-<!--            border-radius: 5px;-->
-<!--        }-->
-
-<!--        /* Стилизация для групп элементов формы */-->
-<!--        .form-group {-->
-<!--            margin-bottom: 15px;-->
-<!--        }-->
-
-<!--        /* Стилизация для элементов ввода */-->
-<!--        input[type="text"], input[type="date"], select {-->
-<!--            width: 100%;-->
-<!--            padding: 10px;-->
-<!--            border: 1px solid #ccc;-->
-<!--            border-radius: 5px;-->
-<!--        }-->
-
-<!--        /* Стилизация для кнопок */-->
-<!--        button {-->
-<!--            background-color: #4CAF50;-->
-<!--            color: white;-->
-<!--            border: none;-->
-<!--            padding: 10px 20px;-->
-<!--            border-radius: 5px;-->
-<!--            cursor: pointer;-->
-<!--        }-->
-
-<!--        button:hover {-->
-<!--            background-color: #45a049;-->
-<!--        }-->
-
-<!--        /* Стилизация для ссылок */-->
-<!--        a {-->
-<!--            color: #4CAF50;-->
-<!--            text-decoration: none;-->
-<!--        }-->
-
-<!--        a:hover {-->
-<!--            text-decoration: underline;-->
-<!--        }-->
-
-<!--    </style>-->
-<!--</head>-->
-<!--<body>-->
-
-<!--<div class="container"> &lt;!&ndash; Блок-контейнер для стилизации &ndash;&gt;-->
-<!--    <h1>Создать новую доставку</h1> &lt;!&ndash; Заголовок страницы &ndash;&gt;-->
-
-<!--    &lt;!&ndash; Форма создания новой доставки &ndash;&gt;-->
-<!--    <form th:action="@{/deliveries/createFromCart}" th:object="${delivery}" method="post">-->
-<!--        &lt;!&ndash; Поле для типа доставки &ndash;&gt;-->
-<!--        <div class="form-group">-->
-<!--            <label for="type">Тип доставки:</label>-->
-<!--            <select id="type" name="type" th:field="*{type}"> &lt;!&ndash; Выпадающий список с типами доставки &ndash;&gt;-->
-<!--                <option th:each="dt : ${T(com.example.spring_security.entity.DeliveryType).values()}" th:value="${dt}" th:text="${dt.name()}"></option>-->
-<!--            </select>-->
-<!--        </div>-->
-
-<!--        &lt;!&ndash; Поле для даты отправки &ndash;&gt;-->
-<!--        <div class="form-group">-->
-<!--            <label for="shipmentDate">Дата отправки:</label>-->
-<!--            <input type="date" id="shipmentDate" name="shipmentDate" th:field="*{shipmentDate}" required>-->
-<!--        </div>-->
-
-<!--        &lt;!&ndash; Поле для даты получения &ndash;&gt;-->
-<!--        <div class="form-group">-->
-<!--            <label for="receiptDate">Дата получения:</label>-->
-<!--            <input type="date" id="receiptDate" name="receiptDate" th:field="*{receiptDate}">-->
-<!--        </div>-->
-
-<!--        &lt;!&ndash; Выпадающий список товаров из корзины &ndash;&gt;-->
-<!--        <div class="form-group">-->
-<!--            <label for="cartItems">Товары из корзины:</label>-->
-<!--            <select id="cartItems" name="productIds" multiple> &lt;!&ndash; Имя параметра 'productIds' и атрибут multiple &ndash;&gt;-->
-<!--                <option th:each="item : ${cart.items}" th:value="${item.product.id}" th:text="${item.product.name}"></option>-->
-<!--            </select>-->
-<!--        </div>-->
-
-
-<!--        &lt;!&ndash; Кнопка для отправки формы &ndash;&gt;-->
-<!--        <div class="form-group">-->
-<!--            <button type="submit">Создать</button> &lt;!&ndash; Кнопка для отправки &ndash;&gt;-->
-<!--        </div>-->
-<!--    </form>-->
-
-<!--    &lt;!&ndash; Ссылка для возврата к списку доставок &ndash;&gt;-->
-<!--    <a href="/deliveries">Назад к списку доставок</a>-->
-
-<!--</div>-->
-
-<!--</body>-->
-
-<!--</html>-->
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Создать новую доставку</title>
     <link rel="stylesheet" type="text/css" href="/static/styles.css"> <!-- Подключение стилей -->
+    <style>
+        /* styles.css */
+
+        /* Стилизация для контейнера */
+        .container {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* Стилизация для групп элементов формы */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        /* Стилизация для элементов ввода */
+        input[type="text"],
+        input[type="email"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; /* Учитываем padding и border в общей ширине элемента */
+            margin-bottom: 10px; /* Добавляем небольшой отступ между элементами */
+        }
+
+        /* Стилизация для кнопок */
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        /* Стилизация для ссылок */
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
 </head>
 <body>
 
@@ -149,7 +96,7 @@
                 <option value="STANDARD">Стандартная доставка</option>
                 <option value="EXPRESS">Экспресс доставка</option>
             </select>
-            <div class="form-group">-->
+            <div class="form-group">
                             <label for="cartItems">Товары из корзины:</label>
                             <select id="cartItems" name="productIds" multiple> <!-- Имя параметра 'productIds' и атрибут multiple -->
                                 <option th:each="item : ${cart.items}" th:value="${item.product.id}" th:text="${item.product.name}"></option>

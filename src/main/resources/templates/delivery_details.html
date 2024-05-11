@@ -4,7 +4,94 @@
     <meta charset="UTF-8">
     <title>Детали доставки</title>
     <link rel="stylesheet" type="text/css" href="/static/styles.css"> <!-- Подключение стилей -->
+    <style>
+        /* styles.css */
+
+        /* Стилизация для контейнера */
+        .container {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* Стилизация для заголовка */
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        /* Стилизация для блока с деталями доставки */
+        .delivery-details {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            margin-bottom: 20px;
+        }
+
+        /* Стилизация для каждого пункта в списке */
+        .delivery-details p {
+            margin-bottom: 10px;
+        }
+
+        /* Стилизация для списка товаров */
+        ul {
+            margin-left: 20px;
+        }
+
+        /* Стилизация для ссылок */
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+        nav {
+            background-color: #333; /* Тёмный фон для навигации */
+            color: white;
+            text-align: center; /* Центрирование элементов */
+            padding: 10px;
+        }
+
+        nav ul {
+            list-style-type: none; /* Убираем маркеры у списков */
+            padding: 0; /* Убираем внутренние отступы */
+            margin: 0; /* Убираем внешние отступы */
+            display: inline-block; /* Выровнять по горизонтали */
+        }
+
+        nav li {
+            display: inline; /* Отображать элементы списков в линию */
+            margin: 0 10px; /* Добавляем промежутки между элементами */
+        }
+
+        nav a {
+            color: white; /* Белый цвет для ссылок */
+            text-decoration: none; /* Без подчеркивания */
+            font-weight: bold; /* Жирный шрифт для ссылок */
+        }
+
+        nav a:hover {
+            text-decoration: underline; /* Подчеркивание при наведении */
+            color: #f5c542; /* Цвет при наведении на ссылки */
+        }
+
+    </style>
 </head>
+<nav>
+    <ul>
+        <li><a href="/">Главная</a></li>
+        <li><a href="/categories">Категории</a></li>
+        <li><a href="/products">Все товары</a></li>
+        <li><a href="/registration">Регистрация</a></li>
+        <li><a href="/profile">Войти в акаунт</a></li>
+        <li><a href="/logout">Выйти</a></li>
+        <li><a href="/cart">order</a></li>
+    </ul>
+</nav>
 <body>
 
 <div class="container"> <!-- Блок-контейнер для стилизации -->
@@ -12,7 +99,7 @@
 
     <!-- Вывод информации о доставке -->
     <div class="delivery-details">
-        <p><strong>ID:</strong> [[${delivery.id}]]</p>
+
         <p><strong>Имя получателя:</strong> [[${delivery.name}]]</p>
         <p><strong>Телефон:</strong> [[${delivery.phone}]]</p>
         <p><strong>Email:</strong> [[${delivery.email}]]</p>
