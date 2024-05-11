@@ -27,4 +27,8 @@ public class ShoppingCart {
     private UserEntity user; // Ссылка на пользователя, если корзина принадлежит пользователю
 
 
+    public void clearCart() {
+        this.items.clear(); // Очищаем список товаров в корзине
+
+    }
 }

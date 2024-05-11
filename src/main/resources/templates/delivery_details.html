@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Детали доставки</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css"> <!-- Подключение стилей -->
+</head>
+<body>
+
+<div class="container"> <!-- Блок-контейнер для стилизации -->
+    <h1>Детали доставки</h1> <!-- Заголовок страницы -->
+
+    <!-- Вывод информации о доставке -->
+    <div class="delivery-details">
+        <p><strong>ID:</strong> [[${delivery.id}]]</p>
+        <p><strong>Имя получателя:</strong> [[${delivery.name}]]</p>
+        <p><strong>Телефон:</strong> [[${delivery.phone}]]</p>
+        <p><strong>Email:</strong> [[${delivery.email}]]</p>
+        <p><strong>Адрес доставки:</strong> [[${delivery.address}]]</p>
+        <p><strong>Дата отправки:</strong> [[${delivery.shipmentDate}]]</p>
+        <p><strong>Дата получения:</strong> [[${delivery.receiptDate}]]</p>
+        <p><strong>Тип доставки:</strong> [[${delivery.type}]]</p>
+        <p><strong>Товары:</strong></p>
+        <ul>
+            <!-- Вывод списка товаров в доставке -->
+            <th:block th:each="item : ${delivery.items}">
+                <li>[[${item.product.name}]]</li>
+            </th:block>
+        </ul>
+    </div>
+
+    <!-- Ссылка для возврата к списку доставок -->
+    <a href="/deliveries">Назад к списку доставок</a>
+</div>
+
+</body>
+</html>

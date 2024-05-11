@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Список доставок</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css"> <!-- Подключение стилей -->
+</head>
+<body>
+
+<div class="container"> <!-- Блок-контейнер для стилизации -->
+    <h1>Список доставок</h1> <!-- Заголовок страницы -->
+
+    <!-- Таблица для отображения списка доставок -->
+    <table>
+        <thead>
+        <tr>
+
+            <th>Имя получателя</th>
+            <th>Номер телефона</th>
+            <th>Email</th>
+            <th>Адрес доставки</th>
+            <th>Дата отправки</th>
+            <th>Дата получения</th>
+            <th>Тип доставки</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Используем Thymeleaf для вывода каждой доставки из списка -->
+        <tr th:each="delivery : ${deliveries}">
+
+            <td th:text="${delivery.name}"></td>
+            <td th:text="${delivery.phone}"></td>
+            <td th:text="${delivery.email}"></td>
+            <td th:text="${delivery.address}"></td>
+            <td th:text="${delivery.shipmentDate}"></td>
+            <td th:text="${delivery.receiptDate}"></td>
+            <td th:text="${delivery.type}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Ссылка для возврата к форме создания новой доставки -->
+    <a href="/deliveries/create">Создать новую доставку</a>
+</div>
+
+</body>
+</html>
