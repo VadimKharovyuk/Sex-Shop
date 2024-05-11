@@ -111,6 +111,7 @@
             <th>Дата отправки</th>
             <th>Дата получения</th>
             <th>Тип доставки</th>
+            <th>Action</th>
         </tr>
         </thead>
         <tbody>
@@ -124,6 +125,11 @@
             <td th:text="${delivery.shipmentDate}"></td>
             <td th:text="${delivery.receiptDate}"></td>
             <td th:text="${delivery.type}"></td>
+            <td>
+                <form th:action="@{/deliveries/delete/{id}(id=${delivery.id})}" method="post">
+                    <button type="submit">Удалить</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>

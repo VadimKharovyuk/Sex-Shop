@@ -50,6 +50,7 @@
             height: auto; /* Поддержка пропорций */
         }
 
+
         /* Стили для кнопки "Подробнее" */
         .more-button {
             background-color: #007bff; /* Синий фон */
@@ -57,6 +58,7 @@
             padding: 10px 20px; /* Внутренние отступы */
             text-decoration: none; /* Без подчеркивания */
             border-radius: 5px; /* Скругленные углы */
+            height: 20px;
         }
 
         .more-button:hover {
@@ -75,6 +77,7 @@
             justify-content: space-around; /* Равномерное распределение по горизонтали */
         }
 
+
         nav ul li {
             display: inline; /* Элементы списка отображаются в одну линию */
         }
@@ -89,6 +92,22 @@
         nav ul li a:hover {
             background-color: #555; /* Темный фон при наведении */
         }
+        .product {
+            display: flex; /* Располагаем элементы в ряд */
+            border: 1px solid #ddd; /* Рамка вокруг элементов */
+            margin-bottom: 20px; /* Отступы между элементами */
+        }
+
+        .product-content {
+            flex: 1; /* Равномерно распределяем доступное пространство между элементами */
+        }
+
+        .product-image {
+            max-width: 130px; /* Ширина изображения */
+            height: auto; /* Поддержка пропорций */
+            margin-right: 40px; /* Отступ справа */
+        }
+
     </style>
 </head>
 <nav>
